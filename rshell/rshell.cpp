@@ -39,9 +39,25 @@ int main(int argc, char* argv[]){
 		for(int i=0; i<argc; i++){
 			
 			if((command)=="hello"){
-				pout() <<"this program works"<<endl;
+				pout() <<"Hello "<<getlogin()<<"!"<<endl;
 				continue;
 			}
+			if((command)=="quit"){
+				while(true){
+					pout() <<"Are you sure you want to quit "<<getlogin()<<"? (Yes/No)"<<endl;
+					getline(cin,command);
+
+					if(command=="Yes"){
+						command = "exit";
+						break;
+					}		
+					else if(command == "No")
+						break;
+					else
+						;
+				}
+			}
+
 				
 		}
 
