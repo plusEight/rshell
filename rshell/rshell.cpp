@@ -46,15 +46,22 @@ bool ifexist(string in){
 }
 //split up string into something useable
 vector<string> parsein(string userin){
-	vector<string> s;
-	
+	vector<string> rpar;	
+	char* par;
+	char convstr[256];
+	strcpy(convstr,userin.c_str()); 
 
-
-	return s;
+	par = strtok (convstr," |&;");
+	while(par!= NULL){
+		rpar.push_back(par);
+		par = strtok(NULL," |&;");
+			
+	}
+	return rpar;
 }
 
 //execs a file
-void runfile(string in){
+void runfile(string in, char* list[]){
 	const char* sstring;
 	sstring = in.c_str();
 	
@@ -67,7 +74,7 @@ void runfile(string in){
 	}
 	else if(pid==0){
 		//child process
-		execvp(sstring,argv);
+		execvp(sstring,NULL);
 		exit(1);
 	}
 
@@ -80,6 +87,9 @@ void runfile(string in){
 int main(int argc, char* argv[]){
 	
 	string command;
+	char* arglist[10];
+	char* currargs[10];
+
 
 	while(command!="exit"){
 
@@ -89,42 +99,52 @@ int main(int argc, char* argv[]){
 		
 
 
-		for(int i=0; i<argc; i++){
+		if(command.empty()){
+			continue;
+		}
 			
-			if((command)=="hello"){
-				pout() <<"Hello "<<getlogin()<<"!"<<endl;
-				continue;
+		if((command)=="hello"){
+			pout() <<"Hello "<<getlogin()<<"!"<<endl;
+			continue;
+		}
+		else if((command)=="quit"){
+			while(true){
+				pout() <<"Are you sure you want to quit "<<getlogin()<<"? (Yes/No)"<<endl;
+				getline(cin,command);
+
+				if(command=="Yes"){
+					command = "exit";
+					break;
+				}		
+				else if(command == "No")
+					break;
+				else
+					;
 			}
-			else if((command)=="quit"){
-				while(true){
-					pout() <<"Are you sure you want to quit "<<getlogin()<<"? (Yes/No)"<<endl;
-					getline(cin,command);
-
-					if(command=="Yes"){
-						command = "exit";
-						break;
-					}		
-					else if(command == "No")
-						break;
-					else
-						;
-				}
-			}
-
-
-			else if(ifexist(command)==true){
-	//			cout << "file exists!" << endl;
-	//			ok this works
-				runfile(command);
-			}
-
-			else{
-				pout() << "Invalid command. Please enter another command."<<endl;
-			}
-
-				
 		}
 
+		else if(command=="test"){
+			vector<string> j;
+
+			j = parsein("Hello myname is&&ping");
+
+			for(int i=0; i<j.size(); i++){
+				pout()<<j.at(i)<<endl;
+			}
+		}
+		else if(ifexist(command)==true){
+//			cout << "file exists!" << endl;
+//			ok this works
+			runfile(command, NULL);
+
+
+		}
+
+		else{
+			pout() << "Invalid command. Please enter another command."<<endl;
+		}
+
+				
 	}
 
 	exit(0);
