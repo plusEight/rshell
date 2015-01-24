@@ -62,42 +62,19 @@ vector<string> parsein(string userin){
 
 //execs a file
 void runfile(string in, char* list[]){
-	const char* sstring;
-	sstring = in.c_str();
-	
-
-	int pid = fork();
-
-	if(pid==-1){
-		perror("fork error");
-		exit(1);
-	}
-	else if(pid==0){
-		//child process
-		execvp(sstring,NULL);
-		exit(1);
-	}
-
-	else{
-		if(-1==wait(0))
-			perror("parent process");	
-	}
+	//not sure if I need anymore
 }
 
 int main(int argc, char* argv[]){
 	
 	string command;
-	char* arglist[10];
-	char* currargs[10];
-
-
+//moved char declaration
+//because declaration might give me trouble? not sure if i can declare empty array of char
 	while(command!="exit"){
 
 		pout();
 		getline(cin,command);
-	//parse here
-		
-
+// basic commands for simplicity
 
 		if(command.empty()){
 			continue;
@@ -122,31 +99,45 @@ int main(int argc, char* argv[]){
 					;
 			}
 		}
-
-		else if(command=="test"){
-			vector<string> j;
-
-			j = parsein("Hello myname is&&ping");
-
-			for(int i=0; i<j.size(); i++){
-				pout()<<j.at(i)<<endl;
-			}
-		}
-		else if(ifexist(command)==true){
-//			cout << "file exists!" << endl;
-//			ok this works
-			runfile(command, NULL);
-
-
-		}
-
+//now we parse and do real stuff
+//ok, convert vector to char array
+	
 		else{
-			pout() << "Invalid command. Please enter another command."<<endl;
+
+			int pid = fork();
+			vector<string> parsed = parsein(command);
+
+			char* scommand[parsed.size()]; 
+			const char* firstexec;
+
+			firstexec = parsed.at(0).c_str();
+
+			for (int i=1;i<parsed.size();i++){
+				scommand[i] = (char*)parsed.at(i).c_str();
+			}
+
+			if(pid==-1){
+				perror("fork error");
+				exit(1);
+			}
+			else if(pid==0){
+				//child process
+				execvp(firstexec,scommand);
+				exit(1);
+			}
+
+			else{
+				if(-1==wait(0))
+					perror("parent process");	
+			}
+
 		}
 
-				
+
 	}
 
 	exit(0);
 	return 0;	
+
+
 }
