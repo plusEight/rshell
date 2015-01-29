@@ -45,99 +45,63 @@ bool ifexist(string in){
 	}
 }
 //split up string into something useable
-vector<string> parsein(string userin){
-	vector<string> rpar;	
-	char* par;
-	char convstr[256];
-	strcpy(convstr,userin.c_str()); 
+string filterstr(string userin){
 
-	par = strtok (convstr," |&;");
-	while(par!= NULL){
-		rpar.push_back(par);
-		par = strtok(NULL," |&;");
-			
+	//first remove comments
+	string newstr = userin.substr(0, userin.find('#'));
+
+
+	//checks beginning and end of string for hanging characters
+	if(!newstr.empty()){
+		while(newstr[0]==' '){
+				newstr.erase(0,1);	
+			}
+		if(newstr[0]==newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
+			pout()<<"\'"<<newstr.at(0)<<"\' "<< "cannot be at the start of your command."<<endl;
+			return "";
+		}
+	
 	}
-	return rpar;
+	
+	//get rid of empty spaces at the end of the string for formatting
+	while(!newstr.empty()){
+		if(newstr.at(newstr.size()-1)==' '){
+			newstr.resize(newstr.size()-1);	
+		}
+		else break;
+	}
+	
+	return newstr;
 }
 
-//execs a file
-void runfile(string in, char* list[]){
-	//not sure if I need anymore
+vector<string> sepstring(string userin){
+	vector<string> parsed;
+
+
+
+	
 }
 
 int main(int argc, char* argv[]){
 	
 	string command;
-//moved char declaration
-//because declaration might give me trouble? not sure if i can declare empty array of char
+
 	while(command!="exit"){
 
 		pout();
 		getline(cin,command);
-// basic commands for simplicity
+//convert cmd into a cstring
+//	cmd = command.c_str(); doesnt work const error.
+		command = filterstr(command);
 
-		if(command.empty()){
-			continue;
-		}
-			
-		if((command)=="hello"){
-			pout() <<"Hello "<<getlogin()<<"!"<<endl;
-			continue;
-		}
-		else if((command)=="quit"){
-			while(true){
-				pout() <<"Are you sure you want to quit "<<getlogin()<<"? (Yes/No)"<<endl;
-				getline(cin,command);
+		pout()<<command<<endl;
 
-				if(command=="Yes"){
-					command = "exit";
-					break;
-				}		
-				else if(command == "No")
-					break;
-				else
-					;
-			}
-		}
-//now we parse and do real stuff
-//ok, convert vector to char array
-	
-		else{
 
-			int pid = fork();
-			vector<string> parsed = parsein(command);
 
-			char* scommand[parsed.size()]; 
-			const char* firstexec;
-
-			firstexec = parsed.at(0).c_str();
-
-			for (int i=1;i<parsed.size();i++){
-				scommand[i] = (char*)parsed.at(i).c_str();
-			}
-
-			if(pid==-1){
-				perror("fork error");
-				exit(1);
-			}
-			else if(pid==0){
-				//child process
-				execvp(firstexec,scommand);
-				exit(1);
-			}
-
-			else{
-				if(-1==wait(0))
-					perror("parent process");	
-			}
-
-		}
 
 
 	}
-
-	exit(0);
-	return 0;	
+		return 0;	
 
 
 }
