@@ -88,6 +88,27 @@ vector<char*> parsestring(string userin){
 	
 }
 
+void execute(char* cmds[]){
+	int pid = fork();
+	int status;
+
+	if(pid<0){
+		perror("Forkng Error");
+	}
+
+	else if(pid==0){
+		//child process
+		execvp(cmds[0], cmds);
+		exit(1);
+	}
+
+	else{
+		//parent
+		perror("error executing");
+	}
+	
+}
+
 int main(int argc, char* argv[]){
 	
 	string command;
