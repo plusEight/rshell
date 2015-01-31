@@ -3,6 +3,8 @@
 //
 //
 
+//test macro
+#define TEST (pout()<<command<<endl)
 
 #include <iostream>
 #include <cstring>
@@ -74,17 +76,23 @@ string filterstr(string userin){
 	return newstr;
 }
 
-vector<string> sepstring(string userin){
-	vector<string> parsed;
-
-
-
+vector<char*> parsestring(string userin){
+	vector<char*> commands;
+	char conv[userin.size()+1];
+	
+	//hopefully got arguments correct
+	//might be segfault here	
+	strcpy(conv, userin.c_str());
+	
+	
 	
 }
 
 int main(int argc, char* argv[]){
 	
 	string command;
+	vector<string> currcom;
+	bool execnext = false; 
 
 	while(command!="exit"){
 
@@ -94,8 +102,8 @@ int main(int argc, char* argv[]){
 //	cmd = command.c_str(); doesnt work const error.
 		command = filterstr(command);
 
-		pout()<<command<<endl;
 
+		TEST;
 
 
 
