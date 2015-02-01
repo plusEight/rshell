@@ -28,8 +28,25 @@ ostream& pout(){
 	return cout <<getlogin()<<"@"<<hostname<< "$ ";
 }
 
-//check if string is the name of a file in directory
+vector<char*> parsestring(char* x){
+	
+	vector<char*> parsed;
+	char* delim;
 
+	delim = strtok(x," ");
+	parsed.push_back(delim);
+		
+	while(delim != NULL){
+
+		delim = strtok(NULL, " " );
+		parsed.push_back(delim);
+		
+	}
+
+	return parsed;
+}
+
+//check if string is the name of a file in directory
 bool ifexist(string in){
 	const char* sstring;
 	sstring = in.c_str();
@@ -76,30 +93,20 @@ string filterstr(string userin){
 	return newstr;
 }
 
-vector<char*> parsestring(string userin){
-	vector<char*> commands;
-	char conv[userin.size()+1];
-	
-	//hopefully got arguments correct
-	//might be segfault here	
-	strcpy(conv, userin.c_str());
-	
-	
-	
-}
-
-void execute(char* cmds[]){
+void execute(char* cmds[], bool checkstat){
 	int pid = fork();
 	int status;
 
 	if(pid<0){
 		perror("Forkng Error");
+		checkstat = false;
 	}
 
 	else if(pid==0){
 		//child process
 		execvp(cmds[0], cmds);
 		exit(1);
+		checkstat = true;
 	}
 
 	else{
