@@ -65,10 +65,8 @@ bool ifexist(string in){
 }
 //split up string into something useable
 string filterstr(string userin){
-
 	//first remove comments
 	string newstr = userin.substr(0, userin.find('#'));
-
 
 	//checks beginning and end of string for hanging characters
 	if(!newstr.empty()){
@@ -109,9 +107,10 @@ void execute(char* cmds[], bool checkstat){
 		checkstat = true;
 	}
 
-	else{
-		//parent
-		perror("error executing");
+	else if(pid>0){
+		if(-1==wait(0))
+			perror("error executing");
+			exit(1);
 	}
 	
 }
@@ -119,7 +118,8 @@ void execute(char* cmds[], bool checkstat){
 int main(int argc, char* argv[]){
 	
 	string command;
-	vector<string> currcom;
+	char raw[1080];
+	vector<char*> currcom;
 	bool execnext = false; 
 
 	while(command!="exit"){
@@ -127,15 +127,13 @@ int main(int argc, char* argv[]){
 		pout();
 		getline(cin,command);
 //convert cmd into a cstring
-//	cmd = command.c_str(); doesnt work const error.
+//		
 		command = filterstr(command);
+		strcpy(raw, command.c_str());
+		currcom = parsestring(raw);
+		char** pcmds=&currcom[0];
 
-
-		TEST;
-
-
-
-
+		execute(pcmds,execnext);
 	}
 		return 0;	
 
