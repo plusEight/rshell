@@ -110,7 +110,6 @@ void execute(char* cmds[], bool checkstat){
 	else if(pid>0){
 		if(-1==wait(0))
 			perror("error executing");
-			exit(1);
 	}
 	
 }
