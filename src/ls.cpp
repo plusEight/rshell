@@ -65,21 +65,28 @@ void formatprint(const char* dirName, bool a, bool l, bool r){
 	if (dirp == NULL)
 		perror("Error with opendir");
 
-	if(a == true){
-		while ((direntp = readdir(dirp))){
-					alph.push_back(direntp->d_name);
+	while ((direntp = readdir(dirp))){
+		if (direntp->d_name[0] != '.'){
+			alph.push_back(direntp->d_name);
+		}
+		if ((direntp->d_name[0] == '.') && (a == true)){
+			alph.push_back(direntp->d_name);
 		}
 	}
 
-	if((a == false) && (l == false) && (r == false)){ //no flags
-		while ((direntp = readdir(dirp))){
-				if(direntp->d_name[0]!='.')
-					alph.push_back(direntp->d_name);
-		}
-	}
-	closedir(dirp);
-	if (closedir(dirp)==-1)
+	if (-1 == closedir(dirp))
 		perror("error closing.");
+
+
+
+//	if((a == false) && (l == false) && (r == false)){ //no flags
+//		while ((direntp = readdir(dirp))){
+//				if(direntp<0)
+//					perror("error with readdir");
+//				if(direntp->d_name[0]!='.')
+//					alph.push_back(direntp->d_name);
+//		}
+//	}
 
 
 	sort(alph.begin(), alph.end());
@@ -125,7 +132,7 @@ void analyzeflag(queue<char*> args){
 
 		
 		formatprint(dirName, a, l, r);
-		closedir(dirp); //should be handled by helper
+		//closedir(dirp); //should be handled by helper
 
 
 	}
