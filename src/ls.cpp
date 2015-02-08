@@ -9,6 +9,8 @@
 #include <queue>
 #include <deque>
 #include <list>
+#include <iomanip>
+#include <algorithm>
 
 #include <iostream>
 
@@ -31,35 +33,82 @@ queue<char*> loadin(int c, char* x[]) {
 	return q;
 }
 
+void parseflags(char* flag, bool &a, bool &l, bool &r){
+	int i=1;
+	while(flag[i] != '\0'){
+		if(flag[i]=='a')
+			a = true;	
+		else if(flag[i]=='l')
+			l = true;	
+		else if(flag[i]=='R')
+			r = true;	
+		else{
+			cout <<"Invalid flag entered."<<endl;			
+			exit(1);
+		}
+
+		i++;
+	}
+		
+}
+
+void formatprint(const char* dirName, bool a, bool l, bool r){
+
+	vector<string> alph;
+	dirent *direntp;
+
+	if (dirName == NULL){
+		dirName = ".";	
+	}
+	
+	DIR *dirp = opendir(dirName);
+	if (dirp == NULL)
+		perror("Error with opendir");
+
+	if(a == true){
+		while ((direntp = readdir(dirp))){
+					alph.push_back(direntp->d_name);
+		}
+	}
+
+	if((a == false) && (l == false) && (r == false)){ //no flags
+		while ((direntp = readdir(dirp))){
+				if(direntp->d_name[0]!='.')
+					alph.push_back(direntp->d_name);
+		}
+	}
+	closedir(dirp);
+	if (closedir(dirp)==-1)
+		perror("error closing.");
+
+
+	sort(alph.begin(), alph.end());
+	for (int i=0; i<alph.size(); i++){
+		cout << setw(10) << alph.at(i) << endl;
+	}
+	
+}
+
 void analyzeflag(queue<char*> args){
 	char* dirName;
 	dirent *direntp; //pointer to each file in directory(this is a struct)
+	DIR *dirp = NULL;
+	
+	bool a = false;
 	bool l = false;
 	bool r = false;
 
-	DIR *dirp = NULL;
-	
 	dirName = ".";
 	
 	//if(notflag(args.front()) && (args.front()!=NULL))
 	//	dirName = args.front();
 
-	if(args.empty()){
-		dirp = opendir(dirName);
-
-		while ((direntp = readdir(dirp))){
-				if(direntp->d_name[0]!='.')
-					cout << direntp->d_name << endl;
-			}
-		
-		closedir(dirp);
+	if(args.empty()) {
+			formatprint(dirName, a, l, r);
 	}
 
 	while(!args.empty()){
 		if(args.front()[0]!='-'){ //not a flag so must be a path
-			l = false;
-			r = false;
-
 			dirName = args.front();
 
 			args.pop(); //ok, it is a path, now lets move on
@@ -67,30 +116,31 @@ void analyzeflag(queue<char*> args){
 		}
 
 		else{ // it is a flag so...
-			if(args.front()==string("-a")){
-				dirp = opendir(dirName);
-				if(dirp==NULL){
-					perror("Error with Dir");
-					exit(1);
-				}
-				while ((direntp = readdir(dirp)))  // use stat here to find attributes of file
-					cout << direntp->d_name << endl;
-			}
-
-			if(args.front()==string("-l"))
-				l=true;	
-
-			if(args.front()==string("-r"))
-				r=true;	
+			
+			parseflags(args.front(), a, l, r);
 
 			args.pop();
+
 		}
 
-			closedir(dirp); //must close because it is a directory
+		
+		formatprint(dirName, a, l, r);
+		closedir(dirp); //should be handled by helper
 
 
 	}
 
+
+//TESTCASES
+//	if (a == true){
+//		cout << "a is true"<<endl;	
+//	}
+//	if (l == true){
+//		cout << "l is true"<<endl;	
+//	}
+//	if (r == true){
+//		cout << "R is true"<<endl;	
+//	}
 }
 
 int main(int argc, char* argv[])
@@ -105,5 +155,5 @@ int main(int argc, char* argv[])
 
 
 //current problems:
-//
-//-a gives segfault
+//-a repeats normal ls
+//invalid flag leads to segfault
