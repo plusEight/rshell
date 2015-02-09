@@ -125,9 +125,10 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 	}
 	
 	DIR *dirp = opendir(dirName);
-	if (dirp == NULL)
+	if (dirp == NULL){
 		perror("Error with opendir");
-
+		exit(1);
+	}
 	while ((direntp = readdir(dirp))){
 		if (direntp->d_name[0] != '.'){
 			alph.push_back(direntp->d_name);
@@ -143,9 +144,10 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 	sort(alph.begin(), alph.end());
 
 
+	int blocks = 0;
 	for (size_t i=0; i<alph.size(); i++){
 		struct stat mylogs;	
-		
+
 		if(l == true){
 
 			if (-1 == stat(contpath(alph.at(i),dirName).c_str(), &mylogs)) //oath in cstr, log
@@ -158,14 +160,20 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 			cout << setw(20) <<left<<alph.at(i);
 			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " " <<groupinfo.gr_name;
 			cout << " " << mylogs.st_size <<" "<<thetime(mylogs)<<endl;
+
+			blocks = blocks + mylogs.st_blocks;
 		}
 
 
 		else{	// -a and normal ls
 			cout << setw(10) << alph.at(i) << endl;
 		}
+
 	}
 	
+		if (l == true){
+		 cout<<"Total Blocks : "<< blocks << endl;
+		}
 }
 
 void analyzeflag(queue<char*> args){
