@@ -58,6 +58,10 @@ void parseflags(char* flag, bool &a, bool &l, bool &r){
 		i++;
 	}
 		
+	if(i==1){
+		cout <<"Invalid flag entered." << endl;
+		exit(1);
+	}
 }
 
 string getpermissions(mode_t modes){
@@ -163,7 +167,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 			cout << setw(20) <<left<<alph.at(i);
 			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " " <<groupinfo.gr_name;
-			cout << " " << mylogs.st_size <<" "<<thetime(mylogs)<<endl;
+			cout << " " << mylogs.st_size <<" "<<thetime(mylogs);
 
 			blocks = blocks + mylogs.st_blocks;
 		}
@@ -187,7 +191,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		}
 
 		for(size_t i=0;i<converted.size(); i++){
-				cout<<endl<< endl <<converted.at(i)<< " : "<<endl;
+				cout<<endl<< endl <<contpath(converted.at(i), dirName)<< ": "<<endl;
 				formatprint(contpath(converted.at(i), dirName).c_str(), a, l, r);
 		}
 	}
@@ -231,7 +235,7 @@ void analyzeflag(queue<char*> args){
 	}
 	
 	for (size_t i=0; i<direc.size(); i++){
-		cout <<"-----------"<<endl<<direc.at(i)<<": "<<endl<<"-----------"<<endl;
+		cout<<direc.at(i)<<": "<<endl;
 		formatprint(direc.at(i), a, l, r);
 		cout << endl;
 	}
