@@ -1,0 +1,1528 @@
+Script started on Sun 08 Feb 2015 11:54:03 PM PST
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls
+LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -a
+. .. .git LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -l
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 0 Sun Feb  8 23:54:03 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 80
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -R
+LICENSE Makefile README.md bin ls.script src tests 
+
+./bin: 
+ls 
+
+./src: 
+a.out bin ls ls.cpp ls2 rshell.cpp test2 test3 testfolder 
+
+./src/bin: 
+
+
+./src/test2: 
+
+
+./src/test3: 
+Untitled Document Untitled Document 2 
+
+./src/testfolder: 
+folder2 jun junkfile 2 testfolder sub 
+
+./src/testfolder/folder2: 
+Untitled Document Untitled Document 2 
+
+./src/testfolder/testfolder sub: 
+
+
+./tests: 
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -al
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 0 Sun Feb  8 23:54:03 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 104
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ v
+v: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -alR
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 0 Sun Feb  8 23:54:03 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 104
+
+
+./.git: 
+.                    drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+COMMIT_EDITMSG       -rw-rw-r-- 1 ping ping 548 Sun Feb  8 22:35:00 2015
+FETCH_HEAD           -rw-rw-r-- 1 ping ping 97 Tue Feb  3 10:40:09 2015
+HEAD                 -rw-rw-r-- 1 ping ping 23 Tue Feb  3 10:40:02 2015
+ORIG_HEAD            -rw-rw-r-- 1 ping ping 41 Tue Feb  3 10:40:09 2015
+branches             drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+config               -rw-rw-r-- 1 ping ping 362 Tue Feb  3 10:42:44 2015
+description          -rw-rw-r-- 1 ping ping 73 Thu Jan 22 16:51:45 2015
+hooks                drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+index                -rw-rw-r-- 1 ping ping 480 Sun Feb  8 22:34:39 2015
+info                 drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+logs                 drwxrwxr-x 3 ping ping 4096 Thu Jan 22 16:51:47 2015
+objects              drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+packed-refs          -rw-rw-r-- 1 ping ping 107 Thu Jan 22 16:51:47 2015
+refs                 drwxrwxr-x 5 ping ping 4096 Thu Jan 22 16:51:47 2015
+Total Blocks : 128
+
+
+./.git/branches: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+Total Blocks : 16
+
+
+./.git/hooks: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+applypatch-msg.sample -rwxrwxr-x 1 ping ping 452 Thu Jan 22 16:51:45 2015
+commit-msg.sample    -rwxrwxr-x 1 ping ping 896 Thu Jan 22 16:51:45 2015
+post-update.sample   -rwxrwxr-x 1 ping ping 189 Thu Jan 22 16:51:45 2015
+pre-applypatch.sample -rwxrwxr-x 1 ping ping 398 Thu Jan 22 16:51:45 2015
+pre-commit.sample    -rwxrwxr-x 1 ping ping 1642 Thu Jan 22 16:51:45 2015
+pre-push.sample      -rwxrwxr-x 1 ping ping 1352 Thu Jan 22 16:51:45 2015
+pre-rebase.sample    -rwxrwxr-x 1 ping ping 4898 Thu Jan 22 16:51:45 2015
+prepare-commit-msg.sample -rwxrwxr-x 1 ping ping 1239 Thu Jan 22 16:51:45 2015
+update.sample        -rwxrwxr-x 1 ping ping 3611 Thu Jan 22 16:51:45 2015
+Total Blocks : 96
+
+
+./.git/info: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+exclude              -rw-rw-r-- 1 ping ping 240 Thu Jan 22 16:51:45 2015
+Total Blocks : 24
+
+
+./.git/logs: 
+.                    drwxrwxr-x 3 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+HEAD                 -rw-rw-r-- 1 ping ping 5507 Sun Feb  8 22:35:00 2015
+refs                 drwxrwxr-x 4 ping ping 4096 Thu Jan 22 16:51:47 2015
+Total Blocks : 40
+
+
+./.git/logs/refs: 
+.                    drwxrwxr-x 4 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 3 ping ping 4096 Thu Jan 22 16:51:47 2015
+heads                drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:42:44 2015
+remotes              drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+Total Blocks : 32
+
+
+./.git/logs/refs/heads: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:42:44 2015
+..                   drwxrwxr-x 4 ping ping 4096 Thu Jan 22 16:51:47 2015
+master               -rw-rw-r-- 1 ping ping 2625 Sun Feb  8 22:35:00 2015
+Total Blocks : 24
+
+
+./.git/logs/refs/remotes: 
+.                    drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+..                   drwxrwxr-x 4 ping ping 4096 Thu Jan 22 16:51:47 2015
+ls                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:25:50 2015
+origin               drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:31:25 2015
+Total Blocks : 32
+
+
+./.git/logs/refs/remotes/ls: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:25:50 2015
+..                   drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+master               -rw-rw-r-- 1 ping ping 141 Tue Feb  3 10:25:50 2015
+Total Blocks : 24
+
+
+./.git/logs/refs/remotes/origin: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:31:25 2015
+..                   drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+HEAD                 -rw-rw-r-- 1 ping ping 174 Thu Jan 22 16:51:47 2015
+ls                   -rw-rw-r-- 1 ping ping 141 Tue Feb  3 10:31:25 2015
+master               -rw-rw-r-- 1 ping ping 1415 Sun Feb  8 22:35:36 2015
+Total Blocks : 40
+
+
+./.git/objects: 
+.                    drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+02                   drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:41 2015
+03                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:57 2015
+06                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:00 2015
+0b                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:37 2015
+0c                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:12:27 2015
+0d                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:37:49 2015
+12                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:05 2015
+17                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:37:41 2015
+18                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:25:41 2015
+1a                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+1b                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:12 2015
+1c                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+1d                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+1e                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:50 2015
+1f                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:53 2015
+20                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:46 2015
+23                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:12 2015
+28                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+29                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:24 2015
+2a                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 00:39:54 2015
+2b                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 00:39:30 2015
+2d                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:54:06 2015
+2e                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:43 2015
+36                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:23:35 2015
+37                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:28 2015
+38                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:51 2015
+3b                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:24 2015
+3e                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:55 2015
+41                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:31 2015
+43                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:26 2015
+44                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+47                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:26:18 2015
+48                   drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:55 2015
+49                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+4a                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:37 2015
+4d                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:11:06 2015
+4e                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:43 2015
+52                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:04 2015
+54                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:25 2015
+55                   drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:41 2015
+5e                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 14:14:42 2015
+65                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:39 2015
+67                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+6b                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:26 2015
+6d                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:11 2015
+6f                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:23:50 2015
+71                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:57 2015
+74                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:49 2015
+78                   drwxrwxr-x 2 ping ping 4096 Wed Jan 28 19:26:07 2015
+7f                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:37:51 2015
+80                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:23:37 2015
+85                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:58 2015
+87                   drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:37 2015
+8b                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:49 2015
+8d                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:15:59 2015
+8f                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:46 2015
+92                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+93                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:50 2015
+95                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:11 2015
+98                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:26:12 2015
+9c                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:44 2015
+9e                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 14:14:21 2015
+a1                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:55:05 2015
+a4                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+a5                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:26 2015
+a6                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+a7                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:43 2015
+a9                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:40 2015
+b7                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:15:31 2015
+c0                   drwxrwxr-x 2 ping ping 4096 Wed Jan 28 19:27:09 2015
+c1                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:04 2015
+c2                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:42 2015
+c6                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:57 2015
+c8                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:54 2015
+cc                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:24:16 2015
+cf                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+d1                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:16:25 2015
+d4                   drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+d6                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:38:25 2015
+d7                   drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:31 2015
+d9                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:58 2015
+dd                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:34 2015
+e3                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:40:41 2015
+e4                   drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:40 2015
+e6                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:12:30 2015
+e7                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:34 2015
+eb                   drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:53 2015
+ed                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:47 2015
+f4                   drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:48:56 2015
+f7                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:15:59 2015
+f8                   drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:24:10 2015
+ff                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:47 2015
+info                 drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+pack                 drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+Total Blocks : 768
+
+
+./.git/objects/02: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:41 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d7c516d962f684ebfbf17328e5ffaf86615579 -r--r--r-- 1 ping ping 148 Wed Feb  4 20:57:41 2015
+Total Blocks : 24
+
+
+./.git/objects/03: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:57 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+4b4c3a16b584b2feab5bb1b306c6acc9950ba6 -r--r--r-- 1 ping ping 152 Fri Jan 23 19:25:57 2015
+Total Blocks : 24
+
+
+./.git/objects/06: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:00 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+283061e80b9de95e320dfcd1e71f9bb9092e00 -r--r--r-- 1 ping ping 181 Sun Feb  8 22:35:00 2015
+Total Blocks : 24
+
+
+./.git/objects/0b: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:37 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+96496d96d6ea4bf296cc1d353490efbbb4ed05 -r--r--r-- 1 ping ping 116 Tue Feb  3 10:27:37 2015
+Total Blocks : 24
+
+
+./.git/objects/0c: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:12:27 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d189fc5c2b5cdcdd2b7228deab295c002a7e42 -r--r--r-- 1 ping ping 179 Sat Feb  7 20:12:27 2015
+Total Blocks : 24
+
+
+./.git/objects/0d: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:37:49 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+4daacb460ec2c897f7aa81900e46a546571418 -r--r--r-- 1 ping ping 536 Fri Jan 23 01:37:49 2015
+Total Blocks : 24
+
+
+./.git/objects/12: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:05 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+38bf513b85803f07840803c0e5c3459bfaf062 -r--r--r-- 1 ping ping 1760 Sun Feb  8 16:48:05 2015
+Total Blocks : 24
+
+
+./.git/objects/17: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:37:41 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+8abc63156a4c8f35c0c15ecc8bad1ac5468299 -r--r--r-- 1 ping ping 219 Tue Feb  3 10:37:41 2015
+Total Blocks : 24
+
+
+./.git/objects/18: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:25:41 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+411ee734afc1e971ea427c5c59f36316a160a2 -r--r--r-- 1 ping ping 152 Fri Jan 23 14:25:41 2015
+Total Blocks : 24
+
+
+./.git/objects/1a: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+446401f500c2337617d7f6498320ace52f7386 -r--r--r-- 1 ping ping 167 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/1b: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:12 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+416157daba85ec7dd8814c74ceb18a17f8c0ca -r--r--r-- 1 ping ping 1175 Sat Feb  7 21:14:12 2015
+Total Blocks : 24
+
+
+./.git/objects/1c: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b8b3be60ee681098f6810b71d9572b0aaae3c8 -r--r--r-- 1 ping ping 170 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/1d: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+8bbeea1f0c26a82f79c5b367240d0acef617be -r--r--r-- 1 ping ping 48 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/1e: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:50 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+9c6b7c39adb25bd9669fd1d6c4fb7ccfa4a2e2 -r--r--r-- 1 ping ping 148 Sun Feb  8 16:11:50 2015
+Total Blocks : 24
+
+
+./.git/objects/1f: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:53 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+9de794ad41862d343cda82f0e76f5d2de4907a -r--r--r-- 1 ping ping 148 Sat Feb  7 20:11:53 2015
+Total Blocks : 24
+
+
+./.git/objects/20: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:46 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+803fc23117fd590658541ee04433d4f6b8788e -r--r--r-- 1 ping ping 1112 Sat Feb  7 20:11:46 2015
+Total Blocks : 24
+
+
+./.git/objects/23: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:12 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+bb36e307ff361874aae06bdb11d3e2d6d4d09b -r--r--r-- 1 ping ping 1792 Sun Feb  8 22:34:12 2015
+Total Blocks : 24
+
+
+./.git/objects/28: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+c4264c3b22d1b004602c1d8ce69b5945e37fb1 -r--r--r-- 1 ping ping 122 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/29: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:24 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+bec6e79def614f2183a9928a3ea5f9c41e3c8d -r--r--r-- 1 ping ping 116 Sat Feb  7 21:14:24 2015
+Total Blocks : 24
+
+
+./.git/objects/2a: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 00:39:54 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+5ff6bbb2d3c6f7de824ed4c57ba540f923d4c1 -r--r--r-- 1 ping ping 171 Sat Jan 31 00:39:54 2015
+Total Blocks : 24
+
+
+./.git/objects/2b: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 00:39:30 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+519675a154b1a1acde5ccf4787f48495503645 -r--r--r-- 1 ping ping 975 Sat Jan 31 00:39:30 2015
+Total Blocks : 24
+
+
+./.git/objects/2d: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:54:06 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+95ab5e49da6b1d0e5263d7317c336f4e9cb7b7 -r--r--r-- 1 ping ping 164 Sun Feb  8 19:54:06 2015
+Total Blocks : 24
+
+
+./.git/objects/2e: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:43 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+e7690b69b764f316aed6a1b072835cc913b83b -r--r--r-- 1 ping ping 1907 Sun Feb  8 19:53:43 2015
+Total Blocks : 24
+
+
+./.git/objects/36: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:23:35 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+985f3b1288354f7cd3b38d19a86adc9cc7a4eb -r--r--r-- 1 ping ping 1138 Fri Jan 23 20:23:35 2015
+Total Blocks : 24
+
+
+./.git/objects/37: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:28 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+27d88ec4d43438ab2e2b603c3b6a065d2b5b07 -r--r--r-- 1 ping ping 1152 Sun Feb  1 21:39:28 2015
+Total Blocks : 24
+
+
+./.git/objects/38: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:51 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d6f4ee43a61e5d7e76aa5cb37869f658679abd -r--r--r-- 1 ping ping 168 Sat Jan 31 18:06:51 2015
+Total Blocks : 24
+
+
+./.git/objects/3b: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:14:24 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+da90b9868de53b53168d968ecae2fdab947dcc -r--r--r-- 1 ping ping 148 Sat Feb  7 21:14:24 2015
+Total Blocks : 24
+
+
+./.git/objects/3e: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:55 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+7bd06baf80d05869aec10ab7adb06f3ed20f46 -r--r--r-- 1 ping ping 48 Fri Jan 23 01:37:56 2015
+e67d911a791710668ed822bd62ba2f34e82763 -r--r--r-- 1 ping ping 175 Tue Feb  3 10:27:55 2015
+Total Blocks : 32
+
+
+./.git/objects/41: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:31 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+0820cc652b617f1b74e23dde526ed0560bf765 -r--r--r-- 1 ping ping 151 Sun Feb  1 21:39:31 2015
+Total Blocks : 24
+
+
+./.git/objects/43: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:26 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+62f087501d6da5d5db7c78b37e5b483782892d -r--r--r-- 1 ping ping 338 Tue Feb  3 10:10:34 2015
+6f6b09789fe5e5678560f900b133ba35767ba0 -r--r--r-- 1 ping ping 148 Sun Feb  8 21:49:26 2015
+Total Blocks : 32
+
+
+./.git/objects/44: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+63fc7b394b6061140e1ed227e4b64b9b16b96d -r--r--r-- 1 ping ping 48 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/47: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:26:18 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+c93085758c0411d176c14d2dea116d008e4739 -r--r--r-- 1 ping ping 182 Fri Jan 23 19:26:18 2015
+Total Blocks : 24
+
+
+./.git/objects/48: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:55 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b9ad6bbca315369e01348cdb622c23faaf2e10 -r--r--r-- 1 ping ping 172 Wed Feb  4 20:57:55 2015
+Total Blocks : 24
+
+
+./.git/objects/49: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+2df1054e3dda4e7303288f19d6f4ed8a36c481 -r--r--r-- 1 ping ping 64 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/4a: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:27:37 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+3fddf04c3fdf1b1d2c62fabcb7c3fcbb350abb -r--r--r-- 1 ping ping 531 Thu Jan 22 16:51:47 2015
+5d9f685ec95201ece9daa2411aa9ff96412832 -r--r--r-- 1 ping ping 148 Tue Feb  3 10:27:37 2015
+Total Blocks : 32
+
+
+./.git/objects/4d: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:11:06 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+8bdc452d494729a33b66185166ed2b058d3029 -r--r--r-- 1 ping ping 169 Tue Feb  3 10:11:06 2015
+Total Blocks : 24
+
+
+./.git/objects/4e: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:43 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+588aa64658fffdc0187f576e89d0e1b4279764 -r--r--r-- 1 ping ping 148 Sun Feb  8 22:34:43 2015
+f146b323e66749d53a2c67864b7a8374f02500 -r--r--r-- 1 ping ping 427 Thu Jan 22 16:51:47 2015
+Total Blocks : 32
+
+
+./.git/objects/52: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:04 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+1f60e6e0a6bda3d5fa2f8b2506ba7304cba233 -r--r--r-- 1 ping ping 148 Sun Feb  8 20:41:04 2015
+9fd50a7ba3b2c3a2b4e4027b71ab5e8fb590d5 -r--r--r-- 1 ping ping 49 Sat Jan 31 14:14:21 2015
+Total Blocks : 32
+
+
+./.git/objects/54: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:25 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b0fa69e2d6449b26d50e645ececd1227599a6f -r--r--r-- 1 ping ping 171 Sun Feb  8 16:48:25 2015
+Total Blocks : 24
+
+
+./.git/objects/55: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:41 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+2bae715454e507acffa41e096bc18161a82bb9 -r--r--r-- 1 ping ping 116 Wed Feb  4 20:57:41 2015
+Total Blocks : 24
+
+
+./.git/objects/5e: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 14:14:42 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+28bd5262af62547840e80e95e7c728737fec69 -r--r--r-- 1 ping ping 170 Sat Jan 31 14:14:42 2015
+c2a9129e06e33fe57a6276adf7cbe226c1459c -r--r--r-- 1 ping ping 853 Wed Jan 28 19:25:52 2015
+Total Blocks : 32
+
+
+./.git/objects/65: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:39 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+c4de96c8666e438002b11edfa9b9c38b0b6d2c -r--r--r-- 1 ping ping 339 Sun Feb  8 22:34:39 2015
+Total Blocks : 24
+
+
+./.git/objects/67: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b1c0ebb3e009266c5cc9576a806f213dc58db2 -r--r--r-- 1 ping ping 119 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/6b: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:26 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+0b11e025c636cd4a114eb5b2b3b4831148131c -r--r--r-- 1 ping ping 116 Sun Feb  8 21:49:26 2015
+Total Blocks : 24
+
+
+./.git/objects/6d: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:11 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+756d9adcb9af8f55d121f450cc5df44b9fe981 -r--r--r-- 1 ping ping 148 Sun Feb  8 16:48:11 2015
+Total Blocks : 24
+
+
+./.git/objects/6f: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:23:50 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+daba5b33806c56db3a6cc60fcf725dff829e65 -r--r--r-- 1 ping ping 163 Tue Feb  3 10:23:50 2015
+Total Blocks : 24
+
+
+./.git/objects/71: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:49:57 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+cced73985af34f47853858ae37609a7b5cc7fa -r--r--r-- 1 ping ping 172 Sun Feb  8 21:49:57 2015
+Total Blocks : 24
+
+
+./.git/objects/74: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:49 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d4e3f38d2c400aa75be792c033905affcc2fad -r--r--r-- 1 ping ping 48 Sun Feb  1 20:53:49 2015
+Total Blocks : 24
+
+
+./.git/objects/78: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Jan 28 19:26:07 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+62a71bbad96cf4039b81fd4cfa68e44a5b6d51 -r--r--r-- 1 ping ping 49 Wed Jan 28 19:26:07 2015
+Total Blocks : 24
+
+
+./.git/objects/7f: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:37:51 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+a8d1a00efcc479cf55ba11bce40c4d39826159 -r--r--r-- 1 ping ping 97 Fri Jan 23 01:37:51 2015
+Total Blocks : 24
+
+
+./.git/objects/80: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:23:37 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+fd65cfeab4ea84164cc2947c11cde88af71275 -r--r--r-- 1 ping ping 48 Fri Jan 23 20:23:37 2015
+Total Blocks : 24
+
+
+./.git/objects/85: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:58 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+9d8fdcbce898434dc35539e2fc8228d163709c -r--r--r-- 1 ping ping 148 Sun Feb  8 19:53:58 2015
+Total Blocks : 24
+
+
+./.git/objects/87: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Feb  4 20:57:37 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+13c04e186f9d9817eb3e1f5cc6fa0b2f77b6aa -r--r--r-- 1 ping ping 798 Wed Feb  4 20:57:37 2015
+Total Blocks : 24
+
+
+./.git/objects/8b: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:49 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+2c8ec633f57990a1718dd7046e28eeb5433aff -r--r--r-- 1 ping ping 152 Sun Feb  1 20:53:49 2015
+Total Blocks : 24
+
+
+./.git/objects/8d: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:15:59 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d88abf4601f2864818bacc73cee35a1ae50c71 -r--r--r-- 1 ping ping 48 Tue Feb  3 10:15:59 2015
+Total Blocks : 24
+
+
+./.git/objects/8f: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:46 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+9de80ea74c89cfd4fc580985e205b5146a6feb -r--r--r-- 1 ping ping 126 Sun Feb  8 16:11:46 2015
+Total Blocks : 24
+
+
+./.git/objects/92: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+d1b93e9729f06f15b9561e5a6463d4b0c41978 -r--r--r-- 1 ping ping 120 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/93: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:11:50 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+0eac4461ccdefadce6c0db49aa1fa73eb44f7e -r--r--r-- 1 ping ping 116 Sun Feb  8 16:11:50 2015
+Total Blocks : 24
+
+
+./.git/objects/95: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:48:11 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+3d8877d045731c74c926e866fd022347ea1614 -r--r--r-- 1 ping ping 116 Sun Feb  8 16:48:11 2015
+Total Blocks : 24
+
+
+./.git/objects/98: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:26:12 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+2def3e4a3d4ca1f04c3ed98afd6c196a26f60e -r--r--r-- 1 ping ping 202 Fri Jan 23 14:26:12 2015
+Total Blocks : 24
+
+
+./.git/objects/9c: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:53:44 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+0010583b2fdee432722bb0df3acd1784ae3c8e -r--r--r-- 1 ping ping 48 Fri Jan 23 14:25:41 2015
+da153aee669b92624f7f31e73e9ba1ceba4543 -r--r--r-- 1 ping ping 1156 Sun Feb  1 20:53:44 2015
+Total Blocks : 32
+
+
+./.git/objects/9e: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 14:14:21 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+dbc8df4cee8e3b09f52ecff199b020f5fb50f5 -r--r--r-- 1 ping ping 152 Sat Jan 31 14:14:21 2015
+f4d1caa7e3935db67a6fe0143df051c5ca7159 -r--r--r-- 1 ping ping 152 Sat Jan 31 00:39:33 2015
+Total Blocks : 32
+
+
+./.git/objects/a1: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 20:55:05 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+31e59668947fb34de85b50ff23c453eff75d90 -r--r--r-- 1 ping ping 174 Sun Feb  1 20:55:05 2015
+76d69dfa9698416749dbbe3c5e7d0e85fb59e2 -r--r--r-- 1 ping ping 152 Fri Jan 23 20:23:37 2015
+Total Blocks : 32
+
+
+./.git/objects/a4: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+193795abddb3d073b8316513b151f1465234a2 -r--r--r-- 1 ping ping 85 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/a5: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:26 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+79761097ed4509c0e4341f612208b6f5f73c81 -r--r--r-- 1 ping ping 174 Sun Feb  8 20:41:26 2015
+Total Blocks : 24
+
+
+./.git/objects/a6: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+dce76876f8dc0138a876adc1a2891f25b13559 -r--r--r-- 1 ping ping 119 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/a7: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:34:43 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+1c40f52c9ce4720c99764123983aebfe327f40 -r--r--r-- 1 ping ping 212 Tue Feb  3 10:10:47 2015
+80a85986a54cb7aa17617e7e7d56d097b64367 -r--r--r-- 1 ping ping 116 Sun Feb  8 22:34:43 2015
+df92178f10fe15dec7c6652152f6ac489f8c66 -r--r--r-- 1 ping ping 1089 Sat Jan 31 14:14:19 2015
+Total Blocks : 40
+
+
+./.git/objects/a9: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:40 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b795b35509818cd9e6a45d8b39769362233bde -r--r--r-- 1 ping ping 152 Sat Jan 31 18:06:40 2015
+f13a165e8ba603b9596a33db8609cc5d2f9c5a -r--r--r-- 1 ping ping 52 Thu Jan 22 16:51:47 2015
+Total Blocks : 32
+
+
+./.git/objects/b7: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 21:15:31 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+eba372711e7d6fe28d121c70643361a6ae681d -r--r--r-- 1 ping ping 173 Sat Feb  7 21:15:31 2015
+Total Blocks : 24
+
+
+./.git/objects/c0: 
+.                    drwxrwxr-x 2 ping ping 4096 Wed Jan 28 19:27:09 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+0fd480f1f4fdc0f2f76cc4d78bc140196c226e -r--r--r-- 1 ping ping 185 Wed Jan 28 19:27:09 2015
+Total Blocks : 24
+
+
+./.git/objects/c1: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:41:04 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+44e7d860d9e657d6dcff82341661c2449f7b12 -r--r--r-- 1 ping ping 116 Sun Feb  8 20:41:04 2015
+907bc3579b742938f5970122beca9696657973 -r--r--r-- 1 ping ping 1709 Sun Feb  8 16:11:06 2015
+969e05e6ea9c755b68ee716b39884703a1cdf9 -r--r--r-- 1 ping ping 49 Sat Jan 31 00:39:33 2015
+Total Blocks : 40
+
+
+./.git/objects/c2: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:42 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+bd2ada59af04c23a0a084fcdfc664c9fa1d5b2 -r--r--r-- 1 ping ping 179 Sun Feb  1 21:39:42 2015
+Total Blocks : 24
+
+
+./.git/objects/c6: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:57 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+dd78f31d663174a212dbdf4bd991e62f15a9da -r--r--r-- 1 ping ping 49 Fri Jan 23 19:25:57 2015
+Total Blocks : 24
+
+
+./.git/objects/c8: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 19:25:54 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+fbb3682971e5c33e48efd66869bf42cbddd474 -r--r--r-- 1 ping ping 1092 Fri Jan 23 19:25:54 2015
+Total Blocks : 24
+
+
+./.git/objects/cc: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 20:24:16 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+02a01b8df8edf63a73000d4a45146c4a82cef9 -r--r--r-- 1 ping ping 189 Fri Jan 23 20:24:16 2015
+Total Blocks : 24
+
+
+./.git/objects/cf: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b4f554539ee29e27b7d3fe436643b4e2b3d2c2 -r--r--r-- 1 ping ping 151 Thu Jan 22 16:51:47 2015
+Total Blocks : 24
+
+
+./.git/objects/d1: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:16:25 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+4e0a82fc6a4b975a5c1decf7e28c18eb596dc0 -r--r--r-- 1 ping ping 162 Tue Feb  3 10:16:25 2015
+Total Blocks : 24
+
+
+./.git/objects/d4: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+473191f0fd6b30e531fe2d8a6ced4de335280c -r--r--r-- 1 ping ping 181 Thu Jan 22 16:51:47 2015
+5c139041eb0428b3094c7213e8125d5e772337 -r--r--r-- 1 ping ping 48 Thu Jan 22 16:51:47 2015
+Total Blocks : 32
+
+
+./.git/objects/d6: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 01:38:25 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+a93266f748d606b884f9434ff662fe80b9dc21 -r--r--r-- 1 ping ping 7710 Thu Jan 22 16:51:47 2015
+ef971577561286235ae3a6c311c51383836ef4 -r--r--r-- 1 ping ping 168 Fri Jan 23 01:38:25 2015
+Total Blocks : 40
+
+
+./.git/objects/d7: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  1 21:39:31 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+7cbf7c14e258c18478eb09b42fede5297ceb03 -r--r--r-- 1 ping ping 48 Sun Feb  1 21:39:31 2015
+Total Blocks : 24
+
+
+./.git/objects/d9: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 19:53:58 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+dd5a8798dded453ceb1439f1914405f115eb04 -r--r--r-- 1 ping ping 116 Sun Feb  8 19:53:58 2015
+f08bf1ca1149f201232aa9e224c4369fbcb2bc -r--r--r-- 1 ping ping 152 Wed Jan 28 19:26:07 2015
+Total Blocks : 32
+
+
+./.git/objects/dd: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:34 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+9283c1aa0249b190e1d7d83df49cb79d68471c -r--r--r-- 1 ping ping 3502 Tue Feb  3 10:10:34 2015
+Total Blocks : 24
+
+
+./.git/objects/e3: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 20:40:41 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+2d0b186a7bb7d686deed4a6ef3d94df0ecc944 -r--r--r-- 1 ping ping 1113 Sat Jan 31 18:06:34 2015
+3485e24e3ffca0741a9e7543b999c76e542bcb -r--r--r-- 1 ping ping 1847 Sun Feb  8 20:40:41 2015
+Total Blocks : 32
+
+
+./.git/objects/e4: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Jan 31 18:06:40 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+fb9fbbd903e6d68d94eed0ba0479c629bd98b4 -r--r--r-- 1 ping ping 48 Sat Jan 31 18:06:40 2015
+Total Blocks : 24
+
+
+./.git/objects/e6: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 16:12:30 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+db32f7d15b13afd5f94f0d7d0d397b57ec2503 -r--r--r-- 1 ping ping 152 Fri Jan 23 01:37:56 2015
+f36fcb847b63f420039f8ea6c5bdcadc742150 -r--r--r-- 1 ping ping 184 Sun Feb  8 16:12:30 2015
+Total Blocks : 32
+
+
+./.git/objects/e7: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:34 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+a3a0872f02c64929db977d9ec7198a62a3eaa9 -r--r--r-- 1 ping ping 214 Tue Feb  3 10:10:34 2015
+Total Blocks : 24
+
+
+./.git/objects/eb: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 20:11:53 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+52b23051c943ea02f9fb6e64c58e3ac2da4fb4 -r--r--r-- 1 ping ping 116 Sat Feb  7 20:11:53 2015
+Total Blocks : 24
+
+
+./.git/objects/ed: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+1cbafe27216fe8bcfd4a221c9c7580e5410e95 -r--r--r-- 1 ping ping 181 Tue Feb  3 10:10:47 2015
+Total Blocks : 24
+
+
+./.git/objects/f4: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 21:48:56 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+625f98c934d275b1a2978f6085146ecfe34f73 -r--r--r-- 1 ping ping 1782 Sun Feb  8 21:48:56 2015
+Total Blocks : 24
+
+
+./.git/objects/f7: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:15:59 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+b3e840891f76e4df55202a8ac40eb6391dcbdf -r--r--r-- 1 ping ping 45 Tue Feb  3 10:15:59 2015
+Total Blocks : 24
+
+
+./.git/objects/f8: 
+.                    drwxrwxr-x 2 ping ping 4096 Fri Jan 23 14:24:10 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+23c621a11eb767776b7fd41f6881e07f82dd83 -r--r--r-- 1 ping ping 918 Fri Jan 23 14:24:10 2015
+Total Blocks : 24
+
+
+./.git/objects/ff: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:10:47 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+56807d881ceb53320695481c0d30eab575c1df -r--r--r-- 1 ping ping 48 Tue Feb  3 10:10:47 2015
+Total Blocks : 24
+
+
+./.git/objects/info: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+Total Blocks : 16
+
+
+./.git/objects/pack: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 96 ping ping 4096 Sun Feb  8 22:35:00 2015
+Total Blocks : 16
+
+
+./.git/refs: 
+.                    drwxrwxr-x 5 ping ping 4096 Thu Jan 22 16:51:47 2015
+..                   drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+heads                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:00 2015
+remotes              drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+tags                 drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+Total Blocks : 40
+
+
+./.git/refs/heads: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:00 2015
+..                   drwxrwxr-x 5 ping ping 4096 Thu Jan 22 16:51:47 2015
+master               -rw-rw-r-- 1 ping ping 41 Sun Feb  8 22:35:00 2015
+Total Blocks : 24
+
+
+./.git/refs/remotes: 
+.                    drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+..                   drwxrwxr-x 5 ping ping 4096 Thu Jan 22 16:51:47 2015
+ls                   drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:25:50 2015
+origin               drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:36 2015
+Total Blocks : 32
+
+
+./.git/refs/remotes/ls: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 10:25:50 2015
+..                   drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+master               -rw-rw-r-- 1 ping ping 41 Tue Feb  3 10:25:50 2015
+Total Blocks : 24
+
+
+./.git/refs/remotes/origin: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:35:36 2015
+..                   drwxrwxr-x 4 ping ping 4096 Tue Feb  3 10:25:50 2015
+HEAD                 -rw-rw-r-- 1 ping ping 32 Thu Jan 22 16:51:47 2015
+ls                   -rw-rw-r-- 1 ping ping 41 Tue Feb  3 10:31:25 2015
+master               -rw-rw-r-- 1 ping ping 41 Sun Feb  8 22:35:36 2015
+Total Blocks : 40
+
+
+./.git/refs/tags: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Jan 22 16:51:45 2015
+..                   drwxrwxr-x 5 ping ping 4096 Thu Jan 22 16:51:47 2015
+Total Blocks : 16
+
+
+./bin: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+ls                   -rwxrwxr-x 1 ping ping 100272 Sun Feb  8 23:51:51 2015
+Total Blocks : 216
+
+
+./src: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+a.out                -rwxrwxr-x 1 ping ping 36168 Sun Feb  8 02:43:47 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 02:42:31 2015
+ls                   -rwxrwxr-x 1 ping ping 100272 Sun Feb  8 23:51:43 2015
+ls.cpp               -rw-rw-r-- 1 ping ping 4606 Sun Feb  8 23:31:24 2015
+ls2                  -rwxrwxr-x 1 ping ping 74067 Sat Feb  7 18:48:37 2015
+rshell.cpp           -rw-rw-r-- 1 ping ping 2359 Tue Feb  3 10:40:09 2015
+test2                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:50:43 2015
+test3                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:51:02 2015
+testfolder           drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Total Blocks : 496
+
+
+./src/bin: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 02:42:31 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+Total Blocks : 16
+
+
+./src/test2: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:50:43 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+Total Blocks : 16
+
+
+./src/test3: 
+.                    drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:51:02 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+Untitled Document    -rw-rw-r-- 1 ping ping 0 Thu Feb  5 01:50:59 2015
+Untitled Document 2  -rw-rw-r-- 1 ping ping 0 Thu Feb  5 01:51:02 2015
+Total Blocks : 16
+
+
+./src/testfolder: 
+.                    drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+.hidden              -rw-rw-r-- 1 ping ping 0 Wed Feb  4 20:40:20 2015
+folder2              drwxrwxr-x 2 ping ping 4096 Sat Feb  7 18:58:32 2015
+jun                  -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:39 2015
+junkfile 2           -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:48 2015
+testfolder sub       drwxrwxr-x 2 ping ping 4096 Tue Feb  3 16:05:29 2015
+Total Blocks : 32
+
+
+./src/testfolder/folder2: 
+.                    drwxrwxr-x 2 ping ping 4096 Sat Feb  7 18:58:32 2015
+..                   drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Untitled Document    -rw-rw-r-- 1 ping ping 0 Sat Feb  7 18:58:28 2015
+Untitled Document 2  -rw-rw-r-- 1 ping ping 0 Sat Feb  7 18:58:32 2015
+Total Blocks : 16
+
+
+./src/testfolder/testfolder sub: 
+.                    drwxrwxr-x 2 ping ping 4096 Tue Feb  3 16:05:29 2015
+..                   drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Total Blocks : 16
+
+
+./tests: 
+.                    drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+Total Blocks : 16
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #aboev were basic test cases that test the functionality of the code
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #below will test file parsing and tags
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -a . -l
+.: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 49152 Sun Feb  8 23:55:46 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 200
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src
+src: 
+a.out bin ls ls.cpp ls2 rshell.cpp test2 test3 testfolder 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src/testfolder
+src/testfolder: 
+folder2 jun junkfile 2 testfolder sub 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -l src/testfolder src .
+src/testfolder: 
+folder2              drwxrwxr-x 2 ping ping 4096 Sat Feb  7 18:58:32 2015
+jun                  -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:39 2015
+junkfile 2           -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:48 2015
+testfolder sub       drwxrwxr-x 2 ping ping 4096 Tue Feb  3 16:05:29 2015
+Total Blocks : 16
+
+src: 
+a.out                -rwxrwxr-x 1 ping ping 36168 Sun Feb  8 02:43:47 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 02:42:31 2015
+ls                   -rwxrwxr-x 1 ping ping 100272 Sun Feb  8 23:51:43 2015
+ls.cpp               -rw-rw-r-- 1 ping ping 4606 Sun Feb  8 23:31:24 2015
+ls2                  -rwxrwxr-x 1 ping ping 74067 Sat Feb  7 18:48:37 2015
+rshell.cpp           -rw-rw-r-- 1 ping ping 2359 Tue Feb  3 10:40:09 2015
+test2                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:50:43 2015
+test3                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:51:02 2015
+testfolder           drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Total Blocks : 480
+
+.: 
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 49152 Sun Feb  8 23:55:46 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 176
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls a- 
+a-: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls notrealfolder
+notrealfolder: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls README.md
+README.md: 
+Error with opendir: Not a directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls README.md -a
+README.md: 
+Error with opendir: Not a directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src -a -l -a -l -a -l . ..
+src: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+a.out                -rwxrwxr-x 1 ping ping 36168 Sun Feb  8 02:43:47 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 02:42:31 2015
+ls                   -rwxrwxr-x 1 ping ping 100272 Sun Feb  8 23:51:43 2015
+ls.cpp               -rw-rw-r-- 1 ping ping 4606 Sun Feb  8 23:31:24 2015
+ls2                  -rwxrwxr-x 1 ping ping 74067 Sat Feb  7 18:48:37 2015
+rshell.cpp           -rw-rw-r-- 1 ping ping 2359 Tue Feb  3 10:40:09 2015
+test2                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:50:43 2015
+test3                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:51:02 2015
+testfolder           drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Total Blocks : 496
+
+.: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 53248 Sun Feb  8 23:57:22 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 208
+
+..: 
+.                    drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+..                   drwxr-xr-x 4 ping ping 4096 Mon Feb  2 14:36:34 2015
+Mike                 drwxrwxr-x 3 ping ping 4096 Thu Jan 22 17:10:04 2015
+U                    drwxrwxr-x 3 ping ping 4096 Mon Jan 26 11:39:59 2015
+rshell               drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+ucr-cs100            drwxrwxr-x 9 ping ping 4096 Thu Jan 22 17:03:23 2015
+Total Blocks : 48
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -llllllllllllllllllllllllll
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 53248 Sun Feb  8 23:57:22 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 184
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bo[Kin/ls -aaaaaaaaaaaaaaaaaaaaaaaaaa
+. .. .git LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -lalalalalalalap
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -unrealflag src
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src -unrealflag
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls 
+LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src . .. src/testfolder -a -l
+src: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+a.out                -rwxrwxr-x 1 ping ping 36168 Sun Feb  8 02:43:47 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 02:42:31 2015
+ls                   -rwxrwxr-x 1 ping ping 100272 Sun Feb  8 23:51:43 2015
+ls.cpp               -rw-rw-r-- 1 ping ping 4606 Sun Feb  8 23:31:24 2015
+ls2                  -rwxrwxr-x 1 ping ping 74067 Sat Feb  7 18:48:37 2015
+rshell.cpp           -rw-rw-r-- 1 ping ping 2359 Tue Feb  3 10:40:09 2015
+test2                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:50:43 2015
+test3                drwxrwxr-x 2 ping ping 4096 Thu Feb  5 01:51:02 2015
+testfolder           drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+Total Blocks : 496
+
+.: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 57344 Mon Feb  9 00:00:15 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 216
+
+..: 
+.                    drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+..                   drwxr-xr-x 4 ping ping 4096 Mon Feb  2 14:36:34 2015
+Mike                 drwxrwxr-x 3 ping ping 4096 Thu Jan 22 17:10:04 2015
+U                    drwxrwxr-x 3 ping ping 4096 Mon Jan 26 11:39:59 2015
+rshell               drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+ucr-cs100            drwxrwxr-x 9 ping ping 4096 Thu Jan 22 17:03:23 2015
+Total Blocks : 48
+
+src/testfolder: 
+.                    drwxrwxr-x 4 ping ping 4096 Sat Feb  7 18:58:22 2015
+..                   drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+.hidden              -rw-rw-r-- 1 ping ping 0 Wed Feb  4 20:40:20 2015
+folder2              drwxrwxr-x 2 ping ping 4096 Sat Feb  7 18:58:32 2015
+jun                  -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:39 2015
+junkfile 2           -rw-rw-r-- 1 ping ping 0 Tue Feb  3 16:05:48 2015
+testfolder sub       drwxrwxr-x 2 ping ping 4096 Tue Feb  3 16:05:29 2015
+Total Blocks : 32
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls src -R;s
+src: 
+a.out bin ls ls.cpp ls2 rshell.cpp test2 test3 testfolder 
+
+src/bin: 
+
+
+src/test2: 
+
+
+src/test3: 
+Untitled Document Untitled Document 2 
+
+src/testfolder: 
+folder2 jun junkfile 2 testfolder sub 
+
+src/testfolder/folder2: 
+Untitled Document Untitled Document 2 
+
+src/testfolder/testfolder sub: 
+
+s: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #now to test a few cases which may break my code
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #these include special characters, strange arrangements of characters
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ...
+...: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ./ -al
+./: 
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 57344 Mon Feb  9 00:00:15 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 216
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ()
+> ^C
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls \\
+\: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ?
+?: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls *
+bin: 
+ls 
+LICENSE: 
+Error with opendir: Not a directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls .////
+.////: 
+LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ./////////// -R
+.///////////: 
+LICENSE Makefile README.md bin ls.script src tests 
+
+.////////////bin: 
+ls 
+
+.////////////src: 
+a.out bin ls ls.cpp ls2 rshell.cpp test2 test3 testfolder 
+
+.////////////src/bin: 
+
+
+.////////////src/test2: 
+
+
+.////////////src/test3: 
+Untitled Document Untitled Document 2 
+
+.////////////src/testfolder: 
+folder2 jun junkfile 2 testfolder sub 
+
+.////////////src/testfolder/folder2: 
+Untitled Document Untitled Document 2 
+
+.////////////src/testfolder/testfolder sub: 
+
+
+.////////////tests: 
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #clearly a dsisplay error/bug
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #will continue 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ ./
+bash: ./: Is a directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls . . . . . .
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ./././././././././././././..
+./././././././././././././..: 
+Mike U rshell ucr-cs100 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ../../../../../../..\
+> ^C
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ../../../../../../..
+../../../../../../..: 
+bin boot cdrom dev etc home initrd.img initrd.img.old lib lib64 lost+found media mnt opt proc root run sbin srv sys tmp usr var vmlinuz vmlinuz.old 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ \
+> ^C
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ vin
+No command 'vin' found, but there are 24 similar ones
+vin: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ________________________
+________________________: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls --------------------
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ..........................
+..........................: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls __________ -alR
+__________: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ~
+/home/ping: 
+Desktop Documents Downloads Dropbox Music Notebooks Pictures Public Templates Videos examples.desktop 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ~ -al
+/home/ping: 
+.                    drwxr-xr-x 25 ping ping 4096 Sun Feb  8 23:51:34 2015
+..                   drwxr-xr-x 3 root root 4096 Tue Jan 20 07:38:09 2015
+.ICEauthority        -rw------- 1 ping ping 8154 Sat Feb  7 15:05:00 2015
+.Skype               drwx------ 6 ping ping 4096 Wed Jan 21 01:11:08 2015
+.Xauthority          -rw------- 1 ping ping 53 Sat Feb  7 15:04:57 2015
+.bash_history        -rw------- 1 ping ping 21507 Sun Feb  8 23:53:48 2015
+.bash_logout         -rw-r--r-- 1 ping ping 220 Tue Jan 20 07:38:09 2015
+.bashrc              -rw-r--r-- 1 ping ping 3637 Tue Jan 20 07:38:09 2015
+.cache               drwx------ 32 ping ping 4096 Tue Feb  3 15:15:56 2015
+.compiz              drwx------ 3 ping ping 4096 Tue Jan 20 16:32:39 2015
+.config              drwx------ 31 ping ping 4096 Tue Feb  3 15:13:20 2015
+.dmrc                -rw-r--r-- 1 ping ping 25 Tue Jan 20 07:58:14 2015
+.dropbox             drwx------ 5 ping ping 4096 Sat Feb  7 15:05:21 2015
+.dropbox-dist        drwxr-xr-x 3 ping ping 4096 Tue Jan 27 09:49:00 2015
+.gconf               drwx------ 4 ping ping 4096 Sat Feb  7 15:05:07 2015
+.gitconfig           -rw-rw-r-- 1 ping ping 49 Thu Jan 22 10:45:37 2015
+.gnome               drwx------ 3 ping ping 4096 Tue Jan 20 16:49:32 2015
+.local               drwxr-xr-x 3 ping ping 4096 Tue Jan 20 07:58:20 2015
+.mozilla             drwx------ 4 ping ping 4096 Tue Jan 20 07:59:22 2015
+.nano_history        -rw------- 1 ping ping 5 Wed Jan 21 16:41:41 2015
+.pki                 drwx------ 3 ping ping 4096 Tue Jan 20 16:49:29 2015
+.profile             -rw-r--r-- 1 ping ping 675 Tue Jan 20 07:38:09 2015
+.ssh                 drwx------ 2 ping ping 4096 Wed Jan 21 15:44:48 2015
+.vim                 drwxr-xr-x 3 ping ping 4096 Tue Feb  3 10:23:38 2015
+.viminfo             -rw------- 1 ping ping 16355 Sun Feb  8 23:51:34 2015
+.vimrc               -rw-rw-r-- 1 ping ping 647 Tue Feb  3 16:35:28 2015
+.xsession-errors     -rw------- 1 ping ping 711 Sat Feb  7 15:04:58 2015
+.xsession-errors.old -rw------- 1 ping ping 1617 Sat Feb  7 15:03:45 2015
+Desktop              drwxr-xr-x 2 ping ping 4096 Mon Feb  2 19:30:50 2015
+Documents            drwxr-xr-x 4 ping ping 4096 Mon Feb  2 14:36:34 2015
+Downloads            drwxr-xr-x 2 ping ping 4096 Mon Feb  2 18:12:04 2015
+Dropbox              drwx------ 6 ping ping 4096 Sat Feb  7 15:05:22 2015
+Music                drwxr-xr-x 2 ping ping 4096 Tue Jan 20 07:58:15 2015
+Notebooks            drwxrwxr-x 3 ping ping 4096 Wed Jan 21 14:56:32 2015
+Pictures             drwxr-xr-x 2 ping ping 4096 Tue Jan 20 07:58:15 2015
+Public               drwxr-xr-x 2 ping ping 4096 Tue Jan 20 07:58:15 2015
+Templates            drwxr-xr-x 2 ping ping 4096 Tue Jan 20 07:58:15 2015
+Videos               drwxr-xr-x 2 ping ping 4096 Tue Jan 20 07:58:15 2015
+examples.desktop     -rw-r--r-- 1 ping ping 8980 Tue Jan 20 07:38:09 2015
+Total Blocks : 400
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ~~
+~~: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls "hello"
+hello: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls echo hello
+echo: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls .. && bin/ls . -;
+..: 
+Mike U rshell ucr-cs100 
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls .. && bin/ls .
+..: 
+Mike U rshell ucr-cs100 
+.: 
+LICENSE Makefile README.md bin ls.script src tests 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -G
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls .././.././.././.././.././.././.././.././../.
+.././.././.././.././.././.././.././.././../.: 
+bin boot cdrom dev etc home initrd.img initrd.img.old lib lib64 lost+found media mnt opt proc root run sbin srv sys tmp usr var vmlinuz vmlinuz.old 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls :)
+bash: syntax error near unexpected token `)'
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls :()
+bash: syntax error near unexpected token `('
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls :O
+:O: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls >:(
+bash: syntax error near unexpected token `('
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ -
+-: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -AAAAAA
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin.
+No command 'bin.' found, did you mean:
+ Command 'bing' from package 'bing' (universe)
+ Command 'bins' from package 'bins' (universe)
+ Command 'bino' from package 'bino' (universe)
+bin.: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalllllllllllllllll llllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllllllllllllll
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 69632 Mon Feb  9 00:09:33 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 248
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #few typos above
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #long flags work
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin.
+No command 'bin.' found, did you mean:
+ Command 'bino' from package 'bino' (universe)
+ Command 'bins' from package 'bins' (universe)
+ Command 'bing' from package 'bing' (universe)
+bin.: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls mkdir blah
+mkdir: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #more test cases?
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #in case i missed obvious ones
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -al -a -l -l
+.                    drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:54:03 2015
+..                   drwxrwxr-x 6 ping ping 4096 Mon Jan 26 11:21:28 2015
+.git                 drwxrwxr-x 8 ping ping 4096 Sun Feb  8 23:51:37 2015
+LICENSE              -rw-rw-r-- 1 ping ping 18027 Tue Feb  3 10:40:09 2015
+Makefile             -rw-rw-r-- 1 ping ping 189 Sun Feb  8 02:45:47 2015
+README.md            -rw-rw-r-- 1 ping ping 535 Sun Feb  8 22:06:06 2015
+bin                  drwxrwxr-x 2 ping ping 4096 Sun Feb  8 23:51:51 2015
+ls.script            -rw-rw-r-- 1 ping ping 69632 Mon Feb  9 00:09:33 2015
+src                  drwxrwxr-x 6 ping ping 4096 Sun Feb  8 23:51:43 2015
+tests                drwxrwxr-x 2 ping ping 4096 Sun Feb  8 22:36:39 2015
+Total Blocks : 248
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin 
+No command 'bin' found, did you mean:
+ Command 'bip' from package 'bip' (universe)
+ Command 'bio' from package 'barry-util' (universe)
+ Command 'tin' from package 'tin' (universe)
+ Command 'bino' from package 'bino' (universe)
+ Command 'ben' from package 'ben' (universe)
+ Command 'bing' from package 'bing' (universe)
+ Command 'win' from package 'wily' (universe)
+ Command 'bins' from package 'bins' (universe)
+ Command 'din' from package 'din' (universe)
+bin: command not found
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls ll
+ll: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -llll -aaa -rrr src . ..
+Invalid flag entered.
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -lll -aaa -RRR src. .. .
+src.: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -;;;
+bash: syntax error near unexpected token `;;'
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls j || bin/ls src
+j: 
+Error with opendir: No such file or directory
+src: 
+a.out bin ls ls.cpp ls2 rshell.cpp test2 test3 testfolder 
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls j && bin/ls src
+j: 
+Error with opendir: No such file or directory
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ bin/ls -R -R src/testfolder
+src/testfolder: 
+folder2 jun junkfile 2 testfolder sub 
+
+src/testfolder/folder2: 
+Untitled Document Untitled Document 2 
+
+src/testfolder/testfolder sub: 
+
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ #seems very clean
+]0;ping@Ping-Mac: ~/Documents/Github/rshellping@Ping-Mac:~/Documents/Github/rshell$ exit
+exit
+
+Script done on Mon 09 Feb 2015 12:14:07 AM PST

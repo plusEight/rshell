@@ -212,6 +212,8 @@ void analyzeflag(queue<char*> args){
 
 	while(!args.empty()){
 		if(args.front()[0]!='-'){ //not a flag so must be a path
+			//formatting tests
+
 			dirName = args.front();
 			direc.push_back(args.front());
 			args.pop(); //ok, it is a path, now lets move on
@@ -228,7 +230,6 @@ void analyzeflag(queue<char*> args){
 
 	}
 
-
 	if(direc.size()==0 &&(a==true||l==true||r==true)){
 		formatprint(dirName, a, l ,r);
 		cout<<endl;
@@ -239,7 +240,6 @@ void analyzeflag(queue<char*> args){
 		formatprint(direc.at(i), a, l, r);
 		cout << endl;
 	}
-
 
 }
 
