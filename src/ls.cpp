@@ -114,11 +114,6 @@ string thetime(struct stat x){
 	return currtime;	
 }
 
-void bigR(vector<string> cur){ //helper
-
-	;
-}
-
 void formatprint(const char* dirName, bool &a, bool l, bool r){
 	//debugging
 	vector<string> alph;
@@ -154,7 +149,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		struct stat mylogs;	
 
 		if(-1 == stat(contpath(alph.at(i),dirName).c_str(), &mylogs)) //oath in cstr, log
-						perror("error with stat");
+			perror("error with stat");
 		
 		if(getpermissions(mylogs.st_mode).at(0)=='d'){ //if dir
 			laterdir.push_back(alph.at(i));
@@ -162,7 +157,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 		if(l == true){
 
-						struct passwd logininfo = *getpwuid(mylogs.st_uid);
+			struct passwd logininfo = *getpwuid(mylogs.st_uid);
 			struct group groupinfo = *getgrgid(mylogs.st_gid);
 
 
@@ -175,7 +170,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 
 		else{	// -a and normal ls
-			cout << setw(10) << alph.at(i) << endl;
+			cout << left << alph.at(i) << " " ;
 		}
 
 	}
@@ -192,7 +187,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		}
 
 		for(size_t i=0;i<converted.size(); i++){
-				cout<<endl <<"-------------"<< endl<<converted.at(i)<< " : "<< endl <<"-------------" << endl <<endl;
+				cout<<endl<< endl <<converted.at(i)<< " : "<<endl;
 				formatprint(contpath(converted.at(i), dirName).c_str(), a, l, r);
 		}
 	}
@@ -205,10 +200,6 @@ void analyzeflag(queue<char*> args){
 	bool a = false;
 	bool l = false;
 	bool r = false;
-
-	
-	//if(notflag(args.front()) && (args.front()!=NULL))
-	//	dirName = args.front();
 
 	if(args.empty()) {
 			formatprint(dirName, a, l, r);
