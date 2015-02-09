@@ -170,7 +170,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 
 		else{	// -a and normal ls
-			cout << left << alph.at(i) << " " ;
+			cout << alph.at(i) << " " ;
 		}
 
 	}
@@ -203,6 +203,7 @@ void analyzeflag(queue<char*> args){
 
 	if(args.empty()) {
 			formatprint(dirName, a, l, r);
+			cout << endl;
 	}
 
 	while(!args.empty()){
@@ -221,23 +222,20 @@ void analyzeflag(queue<char*> args){
 
 		}
 
-		
-		//closedir(dirp); //should be handled by helper
-
-
 	}
 
 
 	if(direc.size()==0 &&(a==true||l==true||r==true)){
 		formatprint(dirName, a, l ,r);
+		cout<<endl;
 	}
 	
 	for (size_t i=0; i<direc.size(); i++){
 		cout <<"-----------"<<endl<<direc.at(i)<<": "<<endl<<"-----------"<<endl;
 		formatprint(direc.at(i), a, l, r);
+		cout << endl;
 	}
 
-	//formatprint(dirName, a, l, r);
 
 }
 
@@ -251,6 +249,3 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
-
-//current problems:
-//basic R implementation
