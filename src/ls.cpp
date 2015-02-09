@@ -102,7 +102,7 @@ string getpermissions(mode_t modes){
 
 string contpath(string s, string c){
 	//c is path
-	
+	//s is filename
 	return (c+"/"+s);
 	
 }
@@ -114,10 +114,16 @@ string thetime(struct stat x){
 	return currtime;	
 }
 
+void bigR(vector<string> cur){ //helper
+
+	;
+}
+
 void formatprint(const char* dirName, bool &a, bool l, bool r){
 	//debugging
-
 	vector<string> alph;
+	vector<string> laterdir;
+	vector<const char*> converted;
 	dirent *direntp;
 
 	if (dirName == NULL){
@@ -143,17 +149,20 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 	sort(alph.begin(), alph.end());
 
-
 	int blocks = 0;
 	for (size_t i=0; i<alph.size(); i++){
 		struct stat mylogs;	
 
+		if(-1 == stat(contpath(alph.at(i),dirName).c_str(), &mylogs)) //oath in cstr, log
+						perror("error with stat");
+		
+		if(getpermissions(mylogs.st_mode).at(0)=='d'){ //if dir
+			laterdir.push_back(alph.at(i));
+		}
+
 		if(l == true){
 
-			if (-1 == stat(contpath(alph.at(i),dirName).c_str(), &mylogs)) //oath in cstr, log
-				perror("error with stat");
-
-			struct passwd logininfo = *getpwuid(mylogs.st_uid);
+						struct passwd logininfo = *getpwuid(mylogs.st_uid);
 			struct group groupinfo = *getgrgid(mylogs.st_gid);
 
 
@@ -171,9 +180,22 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 	}
 	
-		if (l == true){
-		 cout<<"Total Blocks : "<< blocks << endl;
+	if (l == true){
+	 cout<<"Total Blocks : "<< blocks << endl;
+	}
+
+	if (r==true&&(!laterdir.empty())){
+		for(size_t i=0;i<laterdir.size(); i++){
+			if((laterdir.at(i)!=".")&&(laterdir.at(i) != "..")){
+				converted.push_back((laterdir.at(i)).c_str());
+			}
 		}
+
+		for(size_t i=0;i<converted.size(); i++){
+				cout<<endl <<"-------------"<< endl<<converted.at(i)<< " : "<< endl <<"-------------" << endl <<endl;
+				formatprint(contpath(converted.at(i), dirName).c_str(), a, l, r);
+		}
+	}
 }
 
 void analyzeflag(queue<char*> args){
@@ -226,13 +248,6 @@ void analyzeflag(queue<char*> args){
 
 	//formatprint(dirName, a, l, r);
 
-//TESTCASES
-//	if (l == true){
-//		cout << "l is true"<<endl;	
-//	}
-//	if (r == true){
-//		cout << "R is true"<<endl;	
-//	}
 }
 
 int main(int argc, char* argv[])
@@ -247,5 +262,4 @@ int main(int argc, char* argv[])
 
 
 //current problems:
-//-a repeats normal ls
-//invalid flag leads to segfault
+//basic R implementation
