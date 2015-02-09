@@ -6,11 +6,19 @@
 #include <stdlib.h>
 #include <vector>
 #include <string>
+#include <cstring>
 #include <queue>
 #include <deque>
 #include <list>
 #include <iomanip>
 #include <algorithm>
+#include <sys/stat.h>
+#include <linux/stat.h>
+#include <grp.h>
+#include <pwd.h>
+#include <time.h>
+#include <unistd.h>
+
 
 #include <iostream>
 
@@ -52,7 +60,62 @@ void parseflags(char* flag, bool &a, bool &l, bool &r){
 		
 }
 
-void formatprint(const char* dirName, bool a, bool l, bool r){
+string getpermissions(mode_t modes){
+	string def = "----------";
+
+	//file types
+	if(S_ISDIR(modes))
+		def.at(0)='d';
+	else if(S_ISLNK(modes))
+		def.at(0)='l';
+	else if(S_ISFIFO(modes))
+		def.at(0)='p';
+	else if(S_ISSOCK(modes))
+		def.at(0)='s';
+	else if(S_ISBLK(modes))
+		def.at(0)='b';
+	else if(S_ISCHR(modes))
+		def.at(0)='c';
+
+	if(modes & S_IRUSR)
+		def.at(1) = 'r';	
+	if(modes & S_IWUSR)
+		def.at(2) = 'w';
+	if(modes & S_IXUSR)
+		def.at(3) = 'x';
+	if(modes & S_IRGRP)
+		def.at(4) = 'r';
+	if(modes & S_IWGRP)
+		def.at(5) = 'w';
+	if(modes & S_IXGRP)
+		def.at(6) = 'x';
+	if(modes & S_IROTH)
+		def.at(7) = 'r';
+	if(modes & S_IWOTH)
+		def.at(8) = 'w';
+	if(modes & S_IXOTH)
+		def.at(9) = 'x';
+	
+	return def;
+
+}
+
+string contpath(string s, string c){
+	//c is path
+	
+	return (c+"/"+s);
+	
+}
+
+string thetime(struct stat x){
+	string currtime;
+	currtime = ctime(&x.st_mtime);
+
+	return currtime;	
+}
+
+void formatprint(const char* dirName, bool &a, bool l, bool r){
+	//debugging
 
 	vector<string> alph;
 	dirent *direntp;
@@ -69,7 +132,7 @@ void formatprint(const char* dirName, bool a, bool l, bool r){
 		if (direntp->d_name[0] != '.'){
 			alph.push_back(direntp->d_name);
 		}
-		if ((direntp->d_name[0] == '.') && (a == true)){
+		if ((direntp->d_name[0] == '.') && (a == true)){ //if a is true
 			alph.push_back(direntp->d_name);
 		}
 	}
@@ -77,35 +140,42 @@ void formatprint(const char* dirName, bool a, bool l, bool r){
 	if (-1 == closedir(dirp))
 		perror("error closing.");
 
-
-
-//	if((a == false) && (l == false) && (r == false)){ //no flags
-//		while ((direntp = readdir(dirp))){
-//				if(direntp<0)
-//					perror("error with readdir");
-//				if(direntp->d_name[0]!='.')
-//					alph.push_back(direntp->d_name);
-//		}
-//	}
-
-
 	sort(alph.begin(), alph.end());
-	for (int i=0; i<alph.size(); i++){
-		cout << setw(10) << alph.at(i) << endl;
+
+
+	for (size_t i=0; i<alph.size(); i++){
+		struct stat mylogs;	
+		
+		if(l == true){
+
+			if (-1 == stat(contpath(alph.at(i),dirName).c_str(), &mylogs)) //oath in cstr, log
+				perror("error with stat");
+
+			struct passwd logininfo = *getpwuid(mylogs.st_uid);
+			struct group groupinfo = *getgrgid(mylogs.st_gid);
+
+
+			cout << setw(20) <<left<<alph.at(i);
+			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " " <<groupinfo.gr_name;
+			cout << " " << mylogs.st_size <<" "<<thetime(mylogs)<<endl;
+		}
+
+
+		else{	// -a and normal ls
+			cout << setw(10) << alph.at(i) << endl;
+		}
 	}
 	
 }
 
 void analyzeflag(queue<char*> args){
-	char* dirName;
-	dirent *direntp; //pointer to each file in directory(this is a struct)
-	DIR *dirp = NULL;
-	
+	char* dirName=NULL;
+	vector<char*> direc;
+
 	bool a = false;
 	bool l = false;
 	bool r = false;
 
-	dirName = ".";
 	
 	//if(notflag(args.front()) && (args.front()!=NULL))
 	//	dirName = args.front();
@@ -117,7 +187,7 @@ void analyzeflag(queue<char*> args){
 	while(!args.empty()){
 		if(args.front()[0]!='-'){ //not a flag so must be a path
 			dirName = args.front();
-
+			direc.push_back(args.front());
 			args.pop(); //ok, it is a path, now lets move on
 
 		}
@@ -131,17 +201,24 @@ void analyzeflag(queue<char*> args){
 		}
 
 		
-		formatprint(dirName, a, l, r);
 		//closedir(dirp); //should be handled by helper
 
 
 	}
 
 
+	if(direc.size()==0 &&(a==true||l==true||r==true)){
+		formatprint(dirName, a, l ,r);
+	}
+	
+	for (size_t i=0; i<direc.size(); i++){
+		cout <<"-----------"<<endl<<direc.at(i)<<": "<<endl<<"-----------"<<endl;
+		formatprint(direc.at(i), a, l, r);
+	}
+
+	//formatprint(dirName, a, l, r);
+
 //TESTCASES
-//	if (a == true){
-//		cout << "a is true"<<endl;	
-//	}
 //	if (l == true){
 //		cout << "l is true"<<endl;	
 //	}
