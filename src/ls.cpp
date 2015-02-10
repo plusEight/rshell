@@ -170,7 +170,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 				cout <<setw(20)<<left<<alph.at(i).substr(0, 18)+'*';
 			else
 				cout << setw(20) <<left<<alph.at(i);
-			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " "<<groupinfo.gr_name;
+			cout << " " << getpermissions(mylogs.st_mode) <<" "<<setw(4)<<left<<mylogs.st_nlink<<" "<< logininfo.pw_name << " "<<groupinfo.gr_name;
 			cout << " " << setw(7)<<left<<mylogs.st_size<<" "<<thetime(mylogs);
 			blocks = blocks + mylogs.st_blocks;
 		}
