@@ -135,6 +135,9 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		exit(1);
 	}
 	while ((direntp = readdir(dirp))){
+		if(direntp==NULL){
+			perror("readdir error");
+		}
 		if (direntp->d_name[0] != '.'){
 			alph.push_back(direntp->d_name);
 		}
@@ -160,15 +163,15 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		}
 
 		if(l == true){
-
 			struct passwd logininfo = *getpwuid(mylogs.st_uid);
 			struct group groupinfo = *getgrgid(mylogs.st_gid);
-
-
-			cout << setw(20) <<left<<alph.at(i);
-			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " " <<groupinfo.gr_name;
-			cout << " " << mylogs.st_size <<" "<<thetime(mylogs);
-
+			
+			if(alph.at(i).size() >=20)
+				cout <<setw(20)<<left<<alph.at(i).substr(0, 18)+'*';
+			else
+				cout << setw(20) <<left<<alph.at(i);
+			cout << " " << getpermissions(mylogs.st_mode) <<" "<<mylogs.st_nlink<<" "<< logininfo.pw_name << " "<<groupinfo.gr_name;
+			cout << " " << setw(7)<<left<<mylogs.st_size<<" "<<thetime(mylogs);
 			blocks = blocks + mylogs.st_blocks;
 		}
 
@@ -180,7 +183,7 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 	}
 	
 	if (l == true){
-	 cout<<"Total Blocks : "<< blocks << endl;
+		cout<<"Total Blocks : "<< blocks << endl;
 	}
 
 	if (r==true&&(!laterdir.empty())){
@@ -191,8 +194,8 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 		}
 
 		for(size_t i=0;i<converted.size(); i++){
-				cout<<endl<< endl <<contpath(converted.at(i), dirName)<< ": "<<endl;
-				formatprint(contpath(converted.at(i), dirName).c_str(), a, l, r);
+			cout<<endl<< endl <<contpath(converted.at(i), dirName)<< ": "<<endl;
+			formatprint(contpath(converted.at(i), dirName).c_str(), a, l, r);
 		}
 	}
 }
