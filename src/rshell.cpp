@@ -4,7 +4,6 @@
 //
 
 //test macro
-#define TEST (pout()<<command<<endl)
 
 #include <iostream>
 #include <cstring>
@@ -15,6 +14,8 @@
 #include <vector>
 #include <fstream>
 #include <sys/wait.h>
+#include <algorithm>
+#include <boost/algorithm/string/replace.hpp>
 
 using namespace std;
 
@@ -46,38 +47,22 @@ vector<char*> parsestring(char* x){
 	return parsed;
 }
 
-//check if string is the name of a file in directory
-bool ifexist(string in){
-	const char* sstring;
-	sstring = in.c_str();
-
-	fstream test(sstring);
-
-	if(test.good()){
-		test.close();
-		return true;
-	}
-
-	else{
-		test.close();
-		return false;
-	}
-}
 //split up string into something useable
 string filterstr(string userin){
 	//first remove comments
 	string newstr = userin.substr(0, userin.find('#'));
+	
 
 	//checks beginning and end of string for hanging characters
 	if(!newstr.empty()){
 		while(newstr[0]==' '){
 				newstr.erase(0,1);	
 			}
-		if(newstr[0]==newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
+
+		if(newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
 			pout()<<"\'"<<newstr.at(0)<<"\' "<< "cannot be at the start of your command."<<endl;
 			return "";
 		}
-	
 	}
 	
 	//get rid of empty spaces at the end of the string for formatting
@@ -88,29 +73,56 @@ string filterstr(string userin){
 		else break;
 	}
 	
+	//check for special char at end
+	if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
+		pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
+		return "";
+	}
+	
+	//formatting so that it will be easier to parse.
+	boost::replace_all(newstr, "||", " || ");
+	boost::replace_all(newstr, "&&", " && ");
+	boost::replace_all(newstr, ";", " ; ");
+
 	return newstr;
 }
 
-void execute(char* cmds[], bool checkstat){
+bool execute(vector<char*> cmdlist){
 	int pid = fork();
-	int status;
+	int sz = cmdlist.size();
+	int stat = 0;
+	char **cmds = new char*[sz+1];
+
+	for(int i=0; i<sz; i++){
+		cmds[i] = cmdlist[i];
+	}
+
+	cmds[sz] = '\0';
 
 	if(pid<0){
-		perror("Forkng Error");
-		checkstat = false;
+		perror("Forking Error");
 	}
 
 	else if(pid==0){
 		//child process
-		execvp(cmds[0], cmds);
+		if(execvp(cmds[0], cmds)==-1)
+			perror("execvp error");
 		exit(1);
-		checkstat = true;
 	}
 
-	else if(pid>0){
-		if(-1==wait(0))
+	else{
+		if(waitpid(pid,&stat,0)==-1){
 			perror("error executing");
+			exit(1);
+		}	
 	}
+
+	delete [] cmds;
+
+	if (stat==0)
+		return true;
+	else
+		return false;
 	
 }
 
@@ -119,22 +131,28 @@ int main(int argc, char* argv[]){
 	string command;
 	char raw[1080];
 	vector<char*> currcom;
-	bool execnext = false; 
+	bool ifsucceed = true;
 
 	while(command!="exit"){
 
 		pout();
 		getline(cin,command);
-//convert cmd into a cstring
-//		
+
 		command = filterstr(command);
 		strcpy(raw, command.c_str());
 		currcom = parsestring(raw);
-		char** pcmds=&currcom[0];
-
-		execute(pcmds,execnext);
+		
+		for (size_t i=0; i<currcom.size(); i++){
+			pout()<<currcom.at(i)<<" "<<endl;	
+		}
+		
+		//forloop through currcom
+		//make sep function for || && take in currcomm as param
+		//use global bool to keep track of last successful command?
+			
+		execute(currcom);
 	}
-		return 0;	
-
+	
+	return 0;	
 
 }
