@@ -48,25 +48,29 @@ string filterstr(const string userin){
 	if(!newstr.empty()){
 		while(newstr[0]==' '){
 				newstr.erase(0,1);	
-			}
+		}
 
 		if(newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
 			pout()<<"\'"<<newstr.at(0)<<"\' "<< "cannot be at the start of your command."<<endl;
 			return "";
 		}
-	}
 	
-	while(!newstr.empty()){
-		if(newstr.at(newstr.size()-1)==' '){
-			newstr.resize(newstr.size()-1);	
+		while(1){
+			if(newstr.at(newstr.size()-1)==' '){
+				newstr.resize(newstr.size()-1);	
+			}
+			else break;
 		}
-		else break;
+
+		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
+			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
+			return "";
+		}
+	
 	}
 	
-	if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
-		pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
-		return "";
-	}
+	
+	
 	
 	boost::replace_all(newstr, "||", " || ");
 	boost::replace_all(newstr, "&&", " && ");
@@ -140,13 +144,14 @@ void workcommand(const string userin){
 	string input = filterstr(userin);
 	vector<char*> cmdlist = parsestring(input);
 	vector<char*> splitlist;
-	int tracker = 0;
+	int tracker = -1;
 	bool prevcmd = true; //prev command succeeded or failed
 	bool firstrun = true;
-
+	
 	while(!cmdlist.empty()){
 		splitlist = splitcommand(cmdlist,tracker);	
-
+		if(splitlist.empty())
+			break;
 		if((strcmp(splitlist.at(0), "exit") == 0))
 			exit(1);
 		if(firstrun == true){
@@ -171,39 +176,16 @@ void workcommand(const string userin){
 
 int main(int argc, char* argv[]){
 	string command;
-//	bool ifsucceed = true;
 
 	while(command!="exit"){
 
 		pout();
 		getline(cin,command);
-		
 		workcommand(command);
-	
 
-		//forloop through currcom
-		//make sep function for || && take in currcomm as param
-		//use global bool to keep track of last successful command?
-			
-		//execute(currcom);
 	}
 	
 	return 0;	
 
 }
 
-
-//	for (size_t i=0; i<currcom.size(); i++){
-//			pout()<<"curr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
-//		}
-//		
-//		vector<char*> test = splitcommand(currcom);
-//		cout << "TEST size: "<<test.size()<<endl<<endl;
-//		//test
-//		for (size_t i=0; i<test.size(); i++){
-//				pout()<<test.at(i)<<" "<<endl;	
-//		}
-//	
-//		for (size_t i=0; i<currcom.size(); i++){
-//			pout()<<"newcurr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
-//		}
