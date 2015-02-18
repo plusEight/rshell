@@ -95,6 +95,7 @@ bool execute(vector<char*> cmdlist){
 		if(execvp(cmds[0], cmds)==-1)
 			perror("execvp error");
 		exit(1);
+		return true;
 	}
 	else{
 		if(waitpid(pid,&stat,0)==-1){
@@ -104,16 +105,26 @@ bool execute(vector<char*> cmdlist){
 	}
 
 	delete [] cmds;
-	if (stat==0)
-		return true;
-	else
-		return false;
+	return false;
 }
 
-vector<char*> splitcommand(vector<char*> &x){
+vector<char*> splitcommand(vector<char*> &x, int &y){
 	vector<char*> lhs;
 	size_t i=0;
 
+	if((strcmp(x.at(i),";")==0)){
+		x.erase(x.begin());
+		y = 0;
+	}
+	if((strcmp(x.at(i),"&&")==0)){
+		x.erase(x.begin());
+		y = 1;
+	}
+	if((strcmp(x.at(i),"||")==0)){
+		x.erase(x.begin());
+		y = 2;
+	}
+	
 	for (i=0; i<x.size(); i++){
 		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0))
 			break;
@@ -125,33 +136,50 @@ vector<char*> splitcommand(vector<char*> &x){
 	return lhs;
 }
 
+void workcommand(const string userin){
+	string input = filterstr(userin);
+	vector<char*> cmdlist = parsestring(input);
+	vector<char*> splitlist;
+	int tracker = 0;
+	bool prevcmd = true; //prev command succeeded or failed
+	bool firstrun = true;
+
+	while(!cmdlist.empty()){
+		splitlist = splitcommand(cmdlist,tracker);	
+
+		if((strcmp(splitlist.at(0), "exit") == 0))
+			exit(1);
+		if(firstrun == true){
+			prevcmd = execute(splitlist);
+		}
+		
+		else if((tracker==1) && (prevcmd == true)){ //enter &&
+			prevcmd = execute(splitlist);
+		}
+		else if(((tracker==2) == 0) && (prevcmd == false)){ //enter ||
+			prevcmd = execute(splitlist);
+		}
+		else if(tracker==0){ //enter ;
+			prevcmd = execute(splitlist);
+		}
+
+		splitlist.clear();
+		firstrun = false;
+	}
+
+}
+
 int main(int argc, char* argv[]){
 	string command;
 //	bool ifsucceed = true;
 
 	while(command!="exit"){
 
-		vector<char*> currcom;
 		pout();
 		getline(cin,command);
 		
-		command = filterstr(command);
-		currcom = parsestring(command);
-		
-		for (size_t i=0; i<currcom.size(); i++){
-			pout()<<"curr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
-		}
-		
-		vector<char*> test = splitcommand(currcom);
-		cout << "TEST size: "<<test.size()<<endl<<endl;
-		//test
-		for (size_t i=0; i<test.size(); i++){
-				pout()<<test.at(i)<<" "<<endl;	
-		}
+		workcommand(command);
 	
-		for (size_t i=0; i<currcom.size(); i++){
-			pout()<<"newcurr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
-		}
 
 		//forloop through currcom
 		//make sep function for || && take in currcomm as param
@@ -163,3 +191,19 @@ int main(int argc, char* argv[]){
 	return 0;	
 
 }
+
+
+//	for (size_t i=0; i<currcom.size(); i++){
+//			pout()<<"curr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
+//		}
+//		
+//		vector<char*> test = splitcommand(currcom);
+//		cout << "TEST size: "<<test.size()<<endl<<endl;
+//		//test
+//		for (size_t i=0; i<test.size(); i++){
+//				pout()<<test.at(i)<<" "<<endl;	
+//		}
+//	
+//		for (size_t i=0; i<currcom.size(); i++){
+//			pout()<<"newcurr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
+//		}
