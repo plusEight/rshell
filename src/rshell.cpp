@@ -19,41 +19,32 @@
 
 using namespace std;
 
-//display command prompt symbol before every output
 ostream& pout(){
 	char hostname[1024];
-	
 	hostname[1023] = '\0';
 	gethostname(hostname,1023);
-
 	return cout <<getlogin()<<"@"<<hostname<< "$ ";
 }
 
-vector<char*> parsestring(char* x){
-	
+vector<char*> parsestring(const string x){
 	vector<char*> parsed;
 	char* delim;
 
-	delim = strtok(x," ");
+	delim = strtok(const_cast<char*>(x.c_str())," ");
 	parsed.push_back(delim);
 		
 	while(delim != NULL){
-
 		delim = strtok(NULL, " " );
 		parsed.push_back(delim);
-		
 	}
-
+	
+	parsed.pop_back(); //for some reason creates empty element?
 	return parsed;
 }
 
-//split up string into something useable
-string filterstr(string userin){
-	//first remove comments
+string filterstr(const string userin){
 	string newstr = userin.substr(0, userin.find('#'));
-	
 
-	//checks beginning and end of string for hanging characters
 	if(!newstr.empty()){
 		while(newstr[0]==' '){
 				newstr.erase(0,1);	
@@ -65,7 +56,6 @@ string filterstr(string userin){
 		}
 	}
 	
-	//get rid of empty spaces at the end of the string for formatting
 	while(!newstr.empty()){
 		if(newstr.at(newstr.size()-1)==' '){
 			newstr.resize(newstr.size()-1);	
@@ -73,13 +63,11 @@ string filterstr(string userin){
 		else break;
 	}
 	
-	//check for special char at end
 	if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
 		pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 		return "";
 	}
 	
-	//formatting so that it will be easier to parse.
 	boost::replace_all(newstr, "||", " || ");
 	boost::replace_all(newstr, "&&", " && ");
 	boost::replace_all(newstr, ";", " ; ");
@@ -102,14 +90,12 @@ bool execute(vector<char*> cmdlist){
 	if(pid<0){
 		perror("Forking Error");
 	}
-
 	else if(pid==0){
 		//child process
 		if(execvp(cmds[0], cmds)==-1)
 			perror("execvp error");
 		exit(1);
 	}
-
 	else{
 		if(waitpid(pid,&stat,0)==-1){
 			perror("error executing");
@@ -118,39 +104,60 @@ bool execute(vector<char*> cmdlist){
 	}
 
 	delete [] cmds;
-
 	if (stat==0)
 		return true;
 	else
 		return false;
-	
+}
+
+vector<char*> splitcommand(vector<char*> &x){
+	vector<char*> lhs;
+	size_t i=0;
+
+	for (i=0; i<x.size(); i++){
+		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0))
+			break;
+		lhs.push_back(x.at(i));
+	}
+
+	x.erase(x.begin(), x.begin()+i);
+
+	return lhs;
 }
 
 int main(int argc, char* argv[]){
-	
 	string command;
-	char raw[1080];
-	vector<char*> currcom;
-	bool ifsucceed = true;
+//	bool ifsucceed = true;
 
 	while(command!="exit"){
 
+		vector<char*> currcom;
 		pout();
 		getline(cin,command);
-
+		
 		command = filterstr(command);
-		strcpy(raw, command.c_str());
-		currcom = parsestring(raw);
+		currcom = parsestring(command);
 		
 		for (size_t i=0; i<currcom.size(); i++){
-			pout()<<currcom.at(i)<<" "<<endl;	
+			pout()<<"curr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
 		}
 		
+		vector<char*> test = splitcommand(currcom);
+		cout << "TEST size: "<<test.size()<<endl<<endl;
+		//test
+		for (size_t i=0; i<test.size(); i++){
+				pout()<<test.at(i)<<" "<<endl;	
+		}
+	
+		for (size_t i=0; i<currcom.size(); i++){
+			pout()<<"newcurr is at::"<<i<<" " <<currcom.at(i)<<" "<<endl;	
+		}
+
 		//forloop through currcom
 		//make sep function for || && take in currcomm as param
 		//use global bool to keep track of last successful command?
 			
-		execute(currcom);
+		//execute(currcom);
 	}
 	
 	return 0;	
