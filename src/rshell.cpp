@@ -44,17 +44,19 @@ vector<char*> parsestring(const string x){
 
 string filterstr(const string userin){
 	string newstr = userin.substr(0, userin.find('#'));
-
 	if(!newstr.empty()){
 		while(newstr[0]==' '){
-				newstr.erase(0,1);	
+			newstr.erase(0,1);	
 		}
 
 		if(newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
-			pout()<<"\'"<<newstr.at(0)<<"\' "<< "cannot be at the start of your command."<<endl;
+			pout()<<"\'"<<newstr[0]<<"\' "<< "cannot be at the start of your command."<<endl;
 			return "";
 		}
-	
+		//out of range here
+		if(newstr.empty())
+			return newstr;
+
 		while(1){
 			if(newstr.at(newstr.size()-1)==' '){
 				newstr.resize(newstr.size()-1);	
@@ -68,10 +70,7 @@ string filterstr(const string userin){
 		}
 	
 	}
-	
-	
-	
-	
+
 	boost::replace_all(newstr, "||", " || ");
 	boost::replace_all(newstr, "&&", " && ");
 	boost::replace_all(newstr, ";", " ; ");
@@ -115,6 +114,8 @@ bool execute(vector<char*> cmdlist){
 vector<char*> splitcommand(vector<char*> &x, int &y){
 	vector<char*> lhs;
 	size_t i=0;
+	if (x.empty())
+		return lhs;
 
 	if((strcmp(x.at(i),";")==0)){
 		x.erase(x.begin());
