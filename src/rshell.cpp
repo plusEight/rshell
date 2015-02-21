@@ -1,9 +1,5 @@
 // Chuanping "Ping" Fan
 // 2015 cfan002@ucr.edu
-//
-//
-
-//test macro
 
 #include <iostream>
 #include <cstring>
@@ -48,7 +44,6 @@ string filterstr(const string userin){
 		while(newstr[0]==' '){
 			newstr.erase(0,1);	
 		}
-
 		if(newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
 			pout()<<"\'"<<newstr[0]<<"\' "<< "cannot be at the start of your command."<<endl;
 			return "";
@@ -56,22 +51,21 @@ string filterstr(const string userin){
 		//out of range here
 		if(newstr.empty())
 			return newstr;
-
 		while(1){
 			if(newstr.at(newstr.size()-1)==' '){
 				newstr.resize(newstr.size()-1);	
 			}
 			else break;
 		}
-
 		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
 		}
 	
 	}
-
-	boost::replace_all(newstr, "||", " || ");
+	
+	boost::replace_all(newstr, "|", " | ");
+	boost::replace_all(newstr, "|  |", " || ");
 	boost::replace_all(newstr, "&&", " && ");
 	boost::replace_all(newstr, ";", " ; ");
 
@@ -95,9 +89,11 @@ bool execute(vector<char*> cmdlist){
 	}
 	else if(pid==0){
 		//child process
-		if(execvp(cmds[0], cmds)==-1)
+		if(execvp(cmds[0], cmds)==-1){
 			perror("execvp error");
+		}
 		exit(1);
+		cout <<"is true!";
 		return true;
 	}
 	else{
@@ -106,8 +102,11 @@ bool execute(vector<char*> cmdlist){
 			exit(1);
 		}	
 	}
-
+	
 	delete [] cmds;
+
+	if (status == 0)
+		return true;
 	return false;
 }
 
