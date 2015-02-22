@@ -167,8 +167,6 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		}	
 	}
 	
-	if(after>0){
-	}
 	delete [] cmds;
 	if (stat == 0)
 		return true;
@@ -204,7 +202,6 @@ bool adjconnector(const vector<char*> x){
 
 vector<char*> splitcommand(vector<char*> &x, int &y){
 	vector<char*> lhs;
-
 	size_t i=0;
 	if (x.empty())
 		return lhs;
@@ -229,16 +226,14 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 		}
 
 	}
-
 	for (i=0; i<x.size(); i++){
 		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0) || (strcmp(x.at(i),">")==0) || 
 				(strcmp(x.at(i),">>")==0) || (strcmp(x.at(i),"<")==0) || (strcmp(x.at(i),"|")==0))
 			break;
 		lhs.push_back(x.at(i));
 	}
-
+	
 	x.erase(x.begin(), x.begin()+i);
-
 	if(x.size()>1){
 		if((strcmp(x.at(0),">")==0)){
 			x.erase(x.begin());
@@ -257,7 +252,6 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 			y = 6;
 		}	
 	}
-
 	return lhs;
 }
 
@@ -266,6 +260,7 @@ int checkclose(const vector<char*> x){
 	connectors.push_back("&&");
 	connectors.push_back("||");
 	connectors.push_back("<");
+	connectors.push_back(";");
 
 	if(x.size()>1){
 		for (size_t i=0;i<x.size();i++){
