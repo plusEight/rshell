@@ -116,6 +116,8 @@ bool execute(vector<char*> cmdlist){
 
 bool adjconnector(const vector<char*> x){
 	vector<string> connectors;
+	bool firstcon = false;
+	bool secondcon = false;
 	connectors.push_back("&&");
 	connectors.push_back("||");
 	connectors.push_back("|");
@@ -126,10 +128,15 @@ bool adjconnector(const vector<char*> x){
 
 	if(x.size()>1){
 		for (size_t i=0;i<connectors.size();i++){
-			if ((x.at(1) == connectors.at(i)) && (x.at(0)==connectors.at(i)));
-				return false;
+			if (x.at(1) == connectors.at(i))
+				firstcon = true;
+			if (x.at(0) == connectors.at(i))
+				secondcon = true;
 		}
 	}
+	
+	if(firstcon&&secondcon)
+		return false;
 
 	return true;
 }
@@ -147,28 +154,47 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 			return lhs;
 		}
 		
-		if((strcmp(x.at(i),";")==0)){
-			
+		if((strcmp(x.at(0),";")==0)){
 			x.erase(x.begin());
 			y = 0;
 		}
-		if((strcmp(x.at(i),"&&")==0)){
+		if((strcmp(x.at(0),"&&")==0)){
 			x.erase(x.begin());
 			y = 1;
 		}
-		if((strcmp(x.at(i),"||")==0)){
+		if((strcmp(x.at(0),"||")==0)){
 			x.erase(x.begin());
 			y = 2;
 		}
+
 	}
 	
 	for (i=0; i<x.size(); i++){
-		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0))
+		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0) || (strcmp(x.at(i),">")==0) || 
+		(strcmp(x.at(i),">>")==0) || (strcmp(x.at(i),"<")==0) || (strcmp(x.at(i),"|")==0))
 			break;
 		lhs.push_back(x.at(i));
 	}
 
 	x.erase(x.begin(), x.begin()+i);
+	if(x.size()>1){
+		if((strcmp(x.at(0),">")==0)){
+			x.erase(x.begin());
+			y = 3;
+		}
+		if((strcmp(x.at(0),">>")==0)){
+			x.erase(x.begin());
+			y = 4;
+		}
+		if((strcmp(x.at(0),"<")==0)){
+			x.erase(x.begin());
+			y = 5;
+		}
+		if((strcmp(x.at(0),"|")==0)){
+			x.erase(x.begin());
+			y = 6;
+		}	
+	}
 
 	return lhs;
 }
@@ -187,18 +213,25 @@ void workcommand(const string userin){
 			break;
 	
 		if(firstrun == true){
-			prevcmd = execute(splitlist);
+			if(tracker==3)
+				cout << "> detected"<<endl;
+			else
+				prevcmd = execute(splitlist);
 		}
-		else if((tracker==1) && (prevcmd == true)){ //enter &&
-			prevcmd = execute(splitlist);
+		else{
+			if((tracker==1) && (prevcmd == true)){ //enter &&
+				prevcmd = execute(splitlist);
+			}
+			else if(((tracker==2) == 0) && (prevcmd == false)){ //enter ||
+				prevcmd = execute(splitlist);
+			}
+			else if(tracker==0){ //enter ;
+				prevcmd = execute(splitlist);
+			}
+			else if(tracker==3){ //enter >
+				cout << "you are in >"<<endl;
+			}
 		}
-		else if(((tracker==2) == 0) && (prevcmd == false)){ //enter ||
-			prevcmd = execute(splitlist);
-		}
-		else if(tracker==0){ //enter ;
-			prevcmd = execute(splitlist);
-		}
-
 		splitlist.clear();
 		firstrun = false;
 	}
