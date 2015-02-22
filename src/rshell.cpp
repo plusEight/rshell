@@ -82,6 +82,7 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 	int sz = cmdlist.size();
 	int stat;
 	int saveout;
+	int savein;
 	int newfile;
 	char **cmds = new char*[sz+1];
 	for(int i=0; i<sz; i++){
@@ -97,7 +98,17 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 		perror("Forking Error");
 	}
 	else if(pid==0){
-		if(track == 3 || track == 4){ // >
+		if (track == 5){
+			if((savein = dup(0)) == -1)
+				perror("error with dup");
+			if(access(cmdlist2.at(0),F_OK) == -1)
+				perror("error accessing file");
+			if((newfile = open(cmdlist2.at(0), O_RDONLY))==-1)
+				perror("error with open");
+			if((dup2(newfile,0))==-1)
+				perror("error with dup2");
+		}
+		if(track == 3 || track == 4){ 	// > or >>
 			if((saveout = dup(1))==-1)
 				perror("error with dup");
 			if(access(cmdlist2.at(0),F_OK) != -1) //does output file exist?
@@ -107,7 +118,10 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
 			else
 				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
-
+			
+			if(newfile == -1){
+				perror("error with open");
+			}
 			if((dup2(newfile,1))==-1)
 				perror("error with dup2");
 		}
@@ -116,11 +130,17 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 			perror("execvp error");
 		}
 		//**************execute here
-		if ((track == 3)){
+		if ((track == 3) || (track == 4)){
 			dup2(saveout, 1);
 			if(-1==close(newfile))
 				perror("error closing");
 
+		}
+
+		if(track == 5){
+			dup2(savein, 0);
+			if(-1==close(newfile))
+				perror("error closing");
 		}
 		exit(1);
 	}
@@ -130,8 +150,6 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 			exit(1);
 		}	
 	}
-
-
 
 	delete [] cmds;
 	if (stat == 0)
@@ -240,7 +258,7 @@ void workcommand(const string userin){
 			break;
 
 		if(firstrun == true){
-			if(tracker== 3 || tracker == 4){
+			if(tracker== 3 || tracker == 4 || tracker == 5){
 				prevcmd = execute(splitlist, tracker, cmdlist);
 				cmdlist.erase(cmdlist.begin());
 			}
@@ -257,7 +275,7 @@ void workcommand(const string userin){
 			else if(tracker==0){ //enter ;
 				prevcmd = execute(splitlist, tracker, cmdlist);
 			}
-			else if(tracker== 3 || tracker == 4){ //enter >
+			else if(tracker== 3 || tracker == 4 || tracker == 5){ //enter > >> <
 				prevcmd = execute(splitlist, tracker, cmdlist);
 				cmdlist.erase(cmdlist.begin());
 			}
