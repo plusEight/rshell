@@ -76,9 +76,8 @@ string filterstr(const string userin){
 }
 
 bool execute(vector<char*> cmdlist){
-	int pid = fork();
 	int sz = cmdlist.size();
-	int stat = 0;
+	int stat;
 	char **cmds = new char*[sz+1];
 
 	for(int i=0; i<sz; i++){
@@ -90,6 +89,7 @@ bool execute(vector<char*> cmdlist){
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
 
+	int pid = fork();
 	if(pid<0){
 		perror("Forking Error");
 	}
@@ -111,7 +111,8 @@ bool execute(vector<char*> cmdlist){
 
 	if (stat == 0)
 		return true;
-	return false;
+	else 
+		return false;
 }
 
 bool adjconnector(const vector<char*> x){
@@ -222,7 +223,7 @@ void workcommand(const string userin){
 			if((tracker==1) && (prevcmd == true)){ //enter &&
 				prevcmd = execute(splitlist);
 			}
-			else if(((tracker==2) == 0) && (prevcmd == false)){ //enter ||
+			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
 				prevcmd = execute(splitlist);
 			}
 			else if(tracker==0){ //enter ;
@@ -232,6 +233,7 @@ void workcommand(const string userin){
 				cout << "you are in >"<<endl;
 			}
 		}
+
 		splitlist.clear();
 		firstrun = false;
 	}
