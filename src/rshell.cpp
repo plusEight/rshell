@@ -83,6 +83,9 @@ bool execute(vector<char*> cmdlist){
 	}
 
 	cmds[sz] = '\0';
+	
+	if((strcmp(cmdlist[0], "exit") == 0))
+		exit(1);
 
 	if(pid<0){
 		perror("Forking Error");
@@ -93,8 +96,6 @@ bool execute(vector<char*> cmdlist){
 			perror("execvp error");
 		}
 		exit(1);
-		cout <<"is true!";
-		return true;
 	}
 	else{
 		if(waitpid(pid,&stat,0)==-1){
@@ -105,28 +106,57 @@ bool execute(vector<char*> cmdlist){
 	
 	delete [] cmds;
 
-	if (status == 0)
+	if (stat == 0)
 		return true;
 	return false;
 }
 
+bool adjconnector(const vector<char*> x){
+	vector<string> connectors;
+	connectors.push_back("&&");
+	connectors.push_back("||");
+	connectors.push_back("|");
+	connectors.push_back(">");
+	connectors.push_back(">>");
+	connectors.push_back("<");
+	connectors.push_back("|");
+
+	if(x.size()>1){
+		for (size_t i=0;i<connectors.size();i++){
+			if ((x.at(1) == connectors.at(i)) && (x.at(0)==connectors.at(i)));
+				return false;
+		}
+	}
+
+	return true;
+}
+
 vector<char*> splitcommand(vector<char*> &x, int &y){
 	vector<char*> lhs;
+
 	size_t i=0;
 	if (x.empty())
 		return lhs;
-
-	if((strcmp(x.at(i),";")==0)){
-		x.erase(x.begin());
-		y = 0;
-	}
-	if((strcmp(x.at(i),"&&")==0)){
-		x.erase(x.begin());
-		y = 1;
-	}
-	if((strcmp(x.at(i),"||")==0)){
-		x.erase(x.begin());
-		y = 2;
+	if(x.size() > 1){
+		
+		if (!adjconnector(x)){
+			cerr << "Cannot have adjacent connectors!" << endl;
+			return lhs;
+		}
+		
+		if((strcmp(x.at(i),";")==0)){
+			
+			x.erase(x.begin());
+			y = 0;
+		}
+		if((strcmp(x.at(i),"&&")==0)){
+			x.erase(x.begin());
+			y = 1;
+		}
+		if((strcmp(x.at(i),"||")==0)){
+			x.erase(x.begin());
+			y = 2;
+		}
 	}
 	
 	for (i=0; i<x.size(); i++){
@@ -152,12 +182,10 @@ void workcommand(const string userin){
 		splitlist = splitcommand(cmdlist,tracker);	
 		if(splitlist.empty())
 			break;
-		if((strcmp(splitlist.at(0), "exit") == 0))
-			exit(1);
+	
 		if(firstrun == true){
 			prevcmd = execute(splitlist);
 		}
-		
 		else if((tracker==1) && (prevcmd == true)){ //enter &&
 			prevcmd = execute(splitlist);
 		}
