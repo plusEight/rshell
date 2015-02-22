@@ -92,33 +92,35 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
 
-
-
 	int pid = fork();
 	if(pid<0){
 		perror("Forking Error");
 	}
 	else if(pid==0){
-		if(track == 3){ // >
+		if(track == 3 || track == 4){ // >
 			if((saveout = dup(1))==-1)
 				perror("error with dup");
 			if(access(cmdlist2.at(0),F_OK) != -1) //does output file exist?
-				newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+				if(track == 4)
+					newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744);
+				else
+					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
 			else
 				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
 
 			if((dup2(newfile,1))==-1)
 				perror("error with dup2");
 		}
-		//execute here
+		//**************execute here
 		if(execvp(cmds[0], cmds)==-1){
 			perror("execvp error");
 		}
-
-		if (track == 3){
+		//**************execute here
+		if ((track == 3)){
 			dup2(saveout, 1);
 			if(-1==close(newfile))
 				perror("error closing");
+
 		}
 		exit(1);
 	}
@@ -238,8 +240,9 @@ void workcommand(const string userin){
 			break;
 
 		if(firstrun == true){
-			if(tracker==3){
+			if(tracker== 3 || tracker == 4){
 				prevcmd = execute(splitlist, tracker, cmdlist);
+				cmdlist.erase(cmdlist.begin());
 			}
 			else
 				prevcmd = execute(splitlist, tracker, cmdlist);
@@ -254,8 +257,9 @@ void workcommand(const string userin){
 			else if(tracker==0){ //enter ;
 				prevcmd = execute(splitlist, tracker, cmdlist);
 			}
-			else if(tracker==3){ //enter >
-				;
+			else if(tracker== 3 || tracker == 4){ //enter >
+				prevcmd = execute(splitlist, tracker, cmdlist);
+				cmdlist.erase(cmdlist.begin());
 			}
 		}
 
