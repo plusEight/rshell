@@ -44,7 +44,7 @@ string filterstr(const string userin){
 		while(newstr[0]==' '){
 			newstr.erase(0,1);	
 		}
-		if(newstr[0]==';' || newstr[0]=='|' || newstr[0]=='&'){
+		if(newstr[0]=='>' || newstr[0]=='<' || newstr[0]=='|' || newstr[0]=='&'){
 			pout()<<"\'"<<newstr[0]<<"\' "<< "cannot be at the start of your command."<<endl;
 			return "";
 		}
@@ -57,13 +57,16 @@ string filterstr(const string userin){
 			}
 			else break;
 		}
-		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'){
+		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
 		}
 	
 	}
-	
+
+	boost::replace_all(newstr, "<", " < ");
+	boost::replace_all(newstr, ">", " > ");
+	boost::replace_all(newstr, ">  >", " >> ");
 	boost::replace_all(newstr, "|", " | ");
 	boost::replace_all(newstr, "|  |", " || ");
 	boost::replace_all(newstr, "&&", " && ");
