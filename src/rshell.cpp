@@ -78,7 +78,7 @@ string filterstr(const string userin){
 	return newstr;
 }
 
-bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
+bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlist2, const int after){
 	int sz = cmdlist.size();
 	int stat;
 	int saveout;
@@ -108,14 +108,30 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 			if((dup2(newfile,0))==-1)
 				perror("error with dup2");
 		}
+		if (after > 0){
+			if((saveout = dup(1))==-1)
+				perror("error with dup");
+			if(access(cmdlist2.at(after+1),F_OK) != -1) //does output file exist?
+					newfile = open(cmdlist2.at(after+1), O_WRONLY | O_TRUNC, 00744);
+			else
+				newfile = open(cmdlist2.at(after+1), O_WRONLY | O_CREAT, 00744);
+			
+			if(newfile == -1){
+				perror("error with open");
+			}
+			if((dup2(newfile,1))==-1)
+				perror("error with dup2");
+
+		}
 		if(track == 3 || track == 4){ 	// > or >>
 			if((saveout = dup(1))==-1)
 				perror("error with dup");
-			if(access(cmdlist2.at(0),F_OK) != -1) //does output file exist?
+			if(access(cmdlist2.at(0),F_OK) != -1){  //does output file exist?
 				if(track == 4)
 					newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744);
 				else
 					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+			}
 			else
 				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
 			
@@ -130,11 +146,11 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 			perror("execvp error");
 		}
 		//**************execute here
-		if ((track == 3) || (track == 4)){
+		if ((track == 3) || (track == 4) || (after > -1)){
 			dup2(saveout, 1);
 			if(-1==close(newfile))
 				perror("error closing");
-
+			
 		}
 
 		if(track == 5){
@@ -150,7 +166,9 @@ bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 			exit(1);
 		}	
 	}
-
+	
+	if(after>0){
+	}
 	delete [] cmds;
 	if (stat == 0)
 		return true;
@@ -164,7 +182,6 @@ bool adjconnector(const vector<char*> x){
 	bool secondcon = false;
 	connectors.push_back("&&");
 	connectors.push_back("||");
-	connectors.push_back("|");
 	connectors.push_back(">");
 	connectors.push_back(">>");
 	connectors.push_back("<");
@@ -244,11 +261,37 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 	return lhs;
 }
 
+int checkclose(const vector<char*> x){
+	vector<string> connectors;
+	connectors.push_back("&&");
+	connectors.push_back("||");
+	connectors.push_back("<");
+
+	if(x.size()>1){
+		for (size_t i=0;i<x.size();i++){
+			for (size_t j=0; j<connectors.size(); j++){
+				if(x.at(i) == connectors.at(j)){
+					break;
+				}
+				else if(strcmp(x.at(i), ">")==0)
+					return i;
+				else if(strcmp(x.at(i), ">>")==0)
+					return i;
+			}
+		}
+	}
+
+
+	return -1;
+}
+
+
 void workcommand(const string userin){
 	string input = filterstr(userin);
 	vector<char*> cmdlist = parsestring(input);
 	vector<char*> splitlist;
 	int tracker = -1;
+	int after = -1;
 	bool prevcmd = true; //prev command succeeded or failed
 	bool firstrun = true;
 
@@ -259,24 +302,29 @@ void workcommand(const string userin){
 
 		if(firstrun == true){
 			if(tracker== 3 || tracker == 4 || tracker == 5){
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				if(tracker == 5)
+					after = checkclose(cmdlist);
+
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 				cmdlist.erase(cmdlist.begin());
 			}
 			else
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 		}
 		else{
 			if((tracker==1) && (prevcmd == true)){ //enter &&
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(tracker==0){ //enter ;
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(tracker== 3 || tracker == 4 || tracker == 5){ //enter > >> <
-				prevcmd = execute(splitlist, tracker, cmdlist);
+				if(tracker == 5)
+					after = checkclose(cmdlist);
+				prevcmd = execute(splitlist, tracker, cmdlist, after);
 				cmdlist.erase(cmdlist.begin());
 			}
 		}
