@@ -12,6 +12,9 @@
 #include <sys/wait.h>
 #include <algorithm>
 #include <boost/algorithm/string/replace.hpp>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -61,7 +64,7 @@ string filterstr(const string userin){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
 		}
-	
+
 	}
 
 	boost::replace_all(newstr, "<", " < ");
@@ -75,28 +78,47 @@ string filterstr(const string userin){
 	return newstr;
 }
 
-bool execute(vector<char*> cmdlist){
+bool execute(vector<char*> cmdlist, int track, vector<char*> cmdlist2){
 	int sz = cmdlist.size();
 	int stat;
+	int saveout;
+	int newfile;
 	char **cmds = new char*[sz+1];
-
 	for(int i=0; i<sz; i++){
 		cmds[i] = cmdlist[i];
 	}
-
 	cmds[sz] = '\0';
-	
+
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
+
+
 
 	int pid = fork();
 	if(pid<0){
 		perror("Forking Error");
 	}
 	else if(pid==0){
-		//child process
+		if(track == 3){ // >
+			if((saveout = dup(1))==-1)
+				perror("error with dup");
+			if(access(cmdlist2.at(0),F_OK) != -1) //does output file exist?
+				newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+			else
+				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
+
+			if((dup2(newfile,1))==-1)
+				perror("error with dup2");
+		}
+		//execute here
 		if(execvp(cmds[0], cmds)==-1){
 			perror("execvp error");
+		}
+
+		if (track == 3){
+			dup2(saveout, 1);
+			if(-1==close(newfile))
+				perror("error closing");
 		}
 		exit(1);
 	}
@@ -106,9 +128,10 @@ bool execute(vector<char*> cmdlist){
 			exit(1);
 		}	
 	}
-	
-	delete [] cmds;
 
+
+
+	delete [] cmds;
 	if (stat == 0)
 		return true;
 	else 
@@ -135,7 +158,7 @@ bool adjconnector(const vector<char*> x){
 				secondcon = true;
 		}
 	}
-	
+
 	if(firstcon&&secondcon)
 		return false;
 
@@ -149,12 +172,12 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 	if (x.empty())
 		return lhs;
 	if(x.size() > 1){
-		
+
 		if (!adjconnector(x)){
 			cerr << "Cannot have adjacent connectors!" << endl;
 			return lhs;
 		}
-		
+
 		if((strcmp(x.at(0),";")==0)){
 			x.erase(x.begin());
 			y = 0;
@@ -169,15 +192,16 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 		}
 
 	}
-	
+
 	for (i=0; i<x.size(); i++){
 		if((strcmp(x.at(i),"||")==0) || (strcmp(x.at(i),"&&")==0) || (strcmp(x.at(i),";")==0) || (strcmp(x.at(i),">")==0) || 
-		(strcmp(x.at(i),">>")==0) || (strcmp(x.at(i),"<")==0) || (strcmp(x.at(i),"|")==0))
+				(strcmp(x.at(i),">>")==0) || (strcmp(x.at(i),"<")==0) || (strcmp(x.at(i),"|")==0))
 			break;
 		lhs.push_back(x.at(i));
 	}
 
 	x.erase(x.begin(), x.begin()+i);
+
 	if(x.size()>1){
 		if((strcmp(x.at(0),">")==0)){
 			x.erase(x.begin());
@@ -207,30 +231,31 @@ void workcommand(const string userin){
 	int tracker = -1;
 	bool prevcmd = true; //prev command succeeded or failed
 	bool firstrun = true;
-	
+
 	while(!cmdlist.empty()){
 		splitlist = splitcommand(cmdlist,tracker);	
 		if(splitlist.empty())
 			break;
-	
+
 		if(firstrun == true){
-			if(tracker==3)
-				cout << "> detected"<<endl;
+			if(tracker==3){
+				prevcmd = execute(splitlist, tracker, cmdlist);
+			}
 			else
-				prevcmd = execute(splitlist);
+				prevcmd = execute(splitlist, tracker, cmdlist);
 		}
 		else{
 			if((tracker==1) && (prevcmd == true)){ //enter &&
-				prevcmd = execute(splitlist);
+				prevcmd = execute(splitlist, tracker, cmdlist);
 			}
 			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
-				prevcmd = execute(splitlist);
+				prevcmd = execute(splitlist, tracker, cmdlist);
 			}
 			else if(tracker==0){ //enter ;
-				prevcmd = execute(splitlist);
+				prevcmd = execute(splitlist, tracker, cmdlist);
 			}
 			else if(tracker==3){ //enter >
-				cout << "you are in >"<<endl;
+				;
 			}
 		}
 
@@ -250,7 +275,7 @@ int main(int argc, char* argv[]){
 		workcommand(command);
 
 	}
-	
+
 	return 0;	
 
 }
