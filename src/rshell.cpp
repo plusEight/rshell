@@ -165,7 +165,78 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		if(waitpid(pid,&stat,0)==-1){
 			perror("error executing");
 			exit(1);
-		}	
+		}
+	}
+	
+	delete [] cmds;
+	if (stat == 0)
+		return true;
+	else 
+		return false;
+}
+
+bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlist2){
+	cout <<"called!"<<endl;
+	cout <<"our new fd is... " << cmdlist.back() << endl;
+	int sz = cmdlist.size();
+	int stat;
+	int saveout;
+	int newfile;
+	int newfd; //from cases such as 2> 
+
+	newfd = atoi(cmdlist.back());
+
+	char **cmds = new char*[sz+1];
+	for(int i=0; i<sz-1; i++){
+		cmds[i] = cmdlist[i];
+	}
+	cmds[sz-1] = '\0';
+
+	if((strcmp(cmdlist[0], "exit") == 0))
+		exit(1);
+
+	int pid = fork();
+	if(pid<0){
+		perror("Forking Error");
+	}
+	else if(pid==0){
+		if(track == 3 || track == 4){ 	// > or >>
+			if((saveout = dup(newfd))==-1)
+				perror("error with dup");
+			if(access(cmdlist2.at(0),F_OK) != -1){  //does output file exist?
+				if(track == 4)
+					newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744);
+				else
+					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+			}
+			else
+				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
+			
+			if(newfile == -1){
+				perror("error with open");
+			}
+			if((dup2(newfile,newfd))==-1)
+				perror("error with dup2");
+		}
+		//**************execute here
+		if(execvp(cmds[0], cmds)==-1){
+			perror("execvp error");
+		}
+		//**************execute here
+		if ((track == 3) || (track == 4)){
+			dup2(saveout, newfd);
+			if(-1==close(newfile))
+				perror("error closing");
+			
+		}
+
+		exit(1);
+	}
+	else{
+		if(waitpid(pid,&stat,0)==-1){
+			perror("error executing");
+			exit(1);
+		}
 	}
 	
 	delete [] cmds;
@@ -277,10 +348,18 @@ int checkclose(const vector<char*> x){
 		}
 	}
 
-
 	return -1;
 }
 
+bool isNum (const char* x){
+	size_t sz = strlen(x);
+	for (size_t i=0; i<sz; i++){
+		if(!isdigit(x[i]))
+			return false;
+	}
+
+	return true;
+}
 
 void workcommand(const string userin){
 	string input = filterstr(userin);
@@ -300,9 +379,14 @@ void workcommand(const string userin){
 			if(tracker== 3 || tracker == 4 || tracker == 5){
 				if(tracker == 5)
 					after = checkclose(cmdlist);
-
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
-				cmdlist.erase(cmdlist.begin());
+				if((tracker == 3 || tracker == 4)&&(isNum(splitlist.back()))){
+						execEC(splitlist, tracker, cmdlist);
+						cmdlist.erase(cmdlist.begin());
+				}
+				else{
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
+					cmdlist.erase(cmdlist.begin());
+				}
 			}
 			else
 				prevcmd = execute(splitlist, tracker, cmdlist, after);
@@ -320,8 +404,14 @@ void workcommand(const string userin){
 			else if(tracker== 3 || tracker == 4 || tracker == 5){ //enter > >> <
 				if(tracker == 5)
 					after = checkclose(cmdlist);
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
-				cmdlist.erase(cmdlist.begin());
+				if((tracker == 3 || tracker == 4)&&(isNum(splitlist.back()))){
+						execEC(splitlist, tracker, cmdlist);
+						cmdlist.erase(cmdlist.begin());
+				}
+				else{
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
+					cmdlist.erase(cmdlist.begin());
+				}
 			}
 		}
 
