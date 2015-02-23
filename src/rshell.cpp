@@ -147,7 +147,7 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 				perror("error with dup2");
 		}
 		if(track == 6){
-			dup = fd[1]
+			// filed[1];
 		}
 		//**************execute here
 		if(execvp(cmds[0], cmds)==-1){
@@ -415,7 +415,6 @@ void workcommand(const string userin){
 				
 			}
 			else{
-				cout <<"tracker : "<< tracker<<endl;
 				prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 		}
