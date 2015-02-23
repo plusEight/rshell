@@ -60,6 +60,7 @@ string filterstr(const string userin){
 			}
 			else break;
 		}
+	
 		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
@@ -294,7 +295,7 @@ void workcommand(const string userin){
 		splitlist = splitcommand(cmdlist,tracker);	
 		if(splitlist.empty())
 			break;
-
+		cout <<"tracker : " <<tracker<<endl;
 		if(firstrun == true){
 			if(tracker== 3 || tracker == 4 || tracker == 5){
 				if(tracker == 5)
