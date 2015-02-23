@@ -1,0 +1,100 @@
+Script started on Sun 22 Feb 2015 11:28:33 PM PST
+~
+cfan002@hammer $ make
+make: *** No targets specified and no makefile found.  Stop.
+~
+cfan002@hammer $ cd Documents/Github/rshell
+~/Documents/Github/rshell
+cfan002@hammer $ make
+mkdir -p ./bin
+g++ -ansi -pedantic -Wall -Werror ./src/ls.cpp -o ./bin/ls
+g++ -ansi -pedantic -Wall -Werror ./src/rshell.cpp -o ./bin/rshell
+g++ -ansi -pedantic -Wall -Werror ./src/cp.cpp -o ./bin/cp
+~/Documents/Github/rshell
+cfan002@hammer $ bin/rshell
+cfan002@hammer.cs.ucr.edu$ #the following tests basic commands 
+cfan002@hammer.cs.ucr.edu$ ls
+bin  LICENSE  Makefile	README.md  src	tests  typescript
+cfan002@hammer.cs.ucr.edu$ echo hello my name is ping > 1.txt
+cfan002@hammer.cs.ucr.edu$ ls
+1.txt  bin  LICENSE  Makefile  README.md  src  tests  typescript
+cfan002@hammer.cs.ucr.edu$ cat 1.txt
+hello my name is ping
+cfan002@hammer.cs.ucr.edu$ ls > 1.txt
+cfan002@hammer.cs.ucr.edu$ cat 1.txt
+1.txt
+bin
+LICENSE
+Makefile
+README.md
+src
+tests
+typescript
+cfan002@hammer.cs.ucr.edu$ $
+execvp error: No such file or directory
+cfan002@hammer.cs.ucr.edu$ $
+execvp error: No such file or directory
+cfan002@hammer.cs.ucr.edu$ #succesfully truncates
+cfan002@hammer.cs.ucr.edu$ echo hello how are you >> 1.txt
+cfan002@hammer.cs.ucr.edu$ cat e.
+cat: e.: No such file or directory
+cfan002@hammer.cs.ucr.edu$ cat 1.txt
+1.txt
+bin
+LICENSE
+Makefile
+README.md
+src
+tests
+typescript
+hello how are you
+cfan002@hammer.cs.ucr.edu$ # >> succesffully appends
+cfan002@hammer.cs.ucr.edu$ #testing connectors with redirection
+cfan002@hammer.cs.ucr.edu$ echo hello > 2.txt || clear
+cfan002@hammer.cs.ucr.edu$ cat 2.txt
+hello
+cfan002@hammer.cs.ucr.edu$ ls || ls -a > 2.txt
+1.txt  2.txt  bin  LICENSE  Makefile  README.md  src  tests  typescript
+cfan002@hammer.cs.ucr.edu$ cat 2.txt
+hello
+cfan002@hammer.cs.ucr.edu$ ls && ls -a > 2.txt
+1.txt  2.txt  bin  LICENSE  Makefile  README.md  src  tests  typescript
+.   1.txt  bin	 LICENSE   README.md  tests
+..  2.txt  .git  Makefile  src	      typescript
+cfan002@hammer.cs.ucr.edu$ cat 2.txt
+hello
+cfan002@hammer.cs.ucr.edu$ #testing input redirection
+cfan002@hammer.cs.ucr.edu$ wc < 1.txt
+ 9 12 76
+cfan002@hammer.cs.ucr.edu$ wc < 1.txt > 2.txt
+cfan002@hammer.cs.ucr.edu$ cat 2.txt
+ 9 12 76
+cfan002@hammer.cs.ucr.edu$ #succesfully combines input and output redirection
+cfan002@hammer.cs.ucr.edu$ #extra credit test
+cfan002@hammer.cs.ucr.edu$ ls 2> 3.txt
+1.txt  2.txt  3.txt  bin  LICENSE  Makefile  README.md	src  tests  typescript
+cfan002@hammer.cs.ucr.edu$ cat 3.txt
+cfan002@hammer.cs.ucr.edu$ ls 1> 3.txt
+cfan002@hammer.cs.ucr.edu$ cat 3.txt
+1.txt
+2.txt
+3.txt
+bin
+LICENSE
+Makefile
+README.md
+src
+tests
+typescript
+cfan002@hammer.cs.ucr.edu$ ls 15>3.txt
+error with dup: Bad file descriptor
+1.txt  2.txt  3.txt  bin  LICENSE  Makefile  README.md	src  tests  typescript
+cfan002@hammer.cs.ucr.edu$ #successfully uses any file descriptor
+cfan002@hammer.cs.ucr.edu$ r
+execvp error: No such file or directory
+cfan002@hammer.cs.ucr.edu$ exit
+~/Documents/Github/rshell
+cfan002@hammer $ e[Kvim[K[K[Kexit
+exit
+
+Script done on Sun 22 Feb 2015 11:43:59 PM PST
