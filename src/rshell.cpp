@@ -176,8 +176,6 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 }
 
 bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlist2){
-	cout <<"called!"<<endl;
-	cout <<"our new fd is... " << cmdlist.back() << endl;
 	int sz = cmdlist.size();
 	int stat;
 	int saveout;
@@ -274,6 +272,7 @@ bool adjconnector(const vector<char*> x){
 
 vector<char*> splitcommand(vector<char*> &x, int &y){
 	vector<char*> lhs;
+	bool check = false;
 	size_t i=0;
 	if (x.empty())
 		return lhs;
@@ -287,14 +286,17 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 		if((strcmp(x.at(0),";")==0)){
 			x.erase(x.begin());
 			y = 0;
+			check = true;
 		}
 		if((strcmp(x.at(0),"&&")==0)){
 			x.erase(x.begin());
 			y = 1;
+			check = true;
 		}
 		if((strcmp(x.at(0),"||")==0)){
 			x.erase(x.begin());
 			y = 2;
+			check = true;
 		}
 
 	}
@@ -305,7 +307,11 @@ vector<char*> splitcommand(vector<char*> &x, int &y){
 		lhs.push_back(x.at(i));
 	}
 	
-	x.erase(x.begin(), x.begin()+i);
+	x.erase(x.begin(), x.begin()+i); //erases x up to where lhs cuts off
+	
+	if(check==true)
+		return lhs;
+
 	if(x.size()>1){
 		if((strcmp(x.at(0),">")==0)){
 			x.erase(x.begin());
@@ -397,6 +403,9 @@ void workcommand(const string userin){
 			}
 			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
 				prevcmd = execute(splitlist, tracker, cmdlist, after);
+			}
+			else if(((tracker==2)) && (prevcmd == true)){ //enter ||
+				break;
 			}
 			else if(tracker==0){ //enter ;
 				prevcmd = execute(splitlist, tracker, cmdlist, after);

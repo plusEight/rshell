@@ -12,3 +12,6 @@ rshell:
 ls:
 	mkdir -p ./bin
 	g++ $(CPPFLAGS) $(FILEPATH) -o ./bin/ls
+cp: 
+	mkdir -p ./bin
+	g++ $(CPPFLAGS) ./src/cp.cpp -o ./bin/cp
