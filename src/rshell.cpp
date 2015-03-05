@@ -454,13 +454,14 @@ void workcommand(const string userin){
 
 void sighandler(int signal){
 	if (signal == SIGINT){
-		cout << "^c caught !!\n"<< flush;
+		raise(SIGTSTP);
+		//cout << "^c caught !!\n"<< flush;
 	}
 }
 
 int main(int argc, char* argv[]){
 	//struct sigaction psa;
-	signal(SIGINT, sighandler);
+	if (SIG_ERR==signal(SIGINT, sighandler));
 	string command;
 	
 	while(command!="exit"){
