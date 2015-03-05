@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
 
 using namespace std;
 
@@ -430,9 +431,17 @@ void workcommand(const string userin){
 
 }
 
-int main(int argc, char* argv[]){
-	string command;
+void sighandler(int signal){
+	if (signal == SIGINT){
+		cout << "^c caught !!\n"<< flush;
+	}
+}
 
+int main(int argc, char* argv[]){
+	//struct sigaction psa;
+	signal(SIGINT, sighandler);
+	string command;
+	
 	while(command!="exit"){
 
 		pout();
