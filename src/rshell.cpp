@@ -86,6 +86,10 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 	int saveout;
 	int savein;
 	int newfile;
+	int filed [1]; //0 out, 1 in
+	if(track==6)
+		pipe(filed);
+
 	char **cmds = new char*[sz+1];
 	for(int i=0; i<sz; i++){
 		cmds[i] = cmdlist[i];
@@ -142,6 +146,9 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 			}
 			if((dup2(newfile,1))==-1)
 				perror("error with dup2");
+		}
+		if(track == 6){
+			// filed[1];
 		}
 		//**************execute here
 		if(execvp(cmds[0], cmds)==-1){
@@ -368,6 +375,18 @@ bool isNum (const char* x){
 	return true;
 }
 
+/*	cout << " tracker " << tracker << endl;
+		cout << "input: " << input << endl;
+		cout << "splitlist : " <<splitlist.size() << endl;
+		for (size_t i=0; i<splitlist.size(); i++){
+			cout <<splitlist.at(i) << endl;
+		}
+		cout << "cmdlist : " <<cmdlist.size() << endl;
+		for (size_t i=0; i<cmdlist.size(); i++){
+			cout <<cmdlist.at(i) << endl;
+		}
+*/
+
 void workcommand(const string userin){
 	string input = filterstr(userin);
 	vector<char*> cmdlist = parsestring(input);
@@ -381,7 +400,7 @@ void workcommand(const string userin){
 		splitlist = splitcommand(cmdlist,tracker);	
 		if(splitlist.empty())
 			break;
-		cout <<"tracker : " <<tracker<<endl;
+		
 		if(firstrun == true){
 			if(tracker== 3 || tracker == 4 || tracker == 5){
 				if(tracker == 5)
@@ -394,9 +413,11 @@ void workcommand(const string userin){
 					prevcmd = execute(splitlist, tracker, cmdlist, after);
 					cmdlist.erase(cmdlist.begin());
 				}
+				
 			}
-			else
+			else{
 				prevcmd = execute(splitlist, tracker, cmdlist, after);
+			}
 		}
 		else{
 			if((tracker==1) && (prevcmd == true)){ //enter &&
