@@ -62,7 +62,8 @@ string filterstr(const string userin){
 			else break;
 		}
 	
-		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
+		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| 
+		newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
 		}
@@ -455,12 +456,13 @@ void workcommand(const string userin){
 void sighandler(int signal){
 	if (signal == SIGINT){
 		raise(SIGTSTP);
-		//cout << "^c caught !!\n"<< flush;
+	}
+	else if(signal == SIGTSTP){
+		//do thing
 	}
 }
 
 int main(int argc, char* argv[]){
-	//struct sigaction psa;
 	if (SIG_ERR==signal(SIGINT, sighandler));
 	string command;
 	
