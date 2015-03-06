@@ -16,14 +16,48 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <dirent.h>
 
 using namespace std;
+
+string CURRPATH = "~";
 
 ostream& pout(){
 	char hostname[1024];
 	hostname[1023] = '\0';
 	gethostname(hostname,1023);
-	return cout <<getlogin()<<"@"<<hostname<< "$ ";
+	return cout <<getlogin()<<"@"<<hostname<<":"<<CURRPATH<< "$ ";
+}
+
+string getcd(){
+	char buffer[1024];
+	string currw;
+	
+	if(NULL == getcwd(buffer, 1024))
+		perror("Error with getcwd");
+	else
+		currw = getcwd(buffer, 1024);
+	return currw;
+}
+
+void my_cd(vector<char*> newdir){
+	if(newdir.size()>1){
+		string newstr = newdir.at(1);
+		if(newstr == ".")
+			;
+		else{
+			if(chdir(newstr.c_str())!=0)
+				perror("error with chdir");
+			else{
+				CURRPATH = getcd();
+			}
+		}
+	}
+	else{
+		CURRPATH = getcd();
+		if(chdir(getenv("HOME"))!=0)
+			perror("error with chdir");
+	}
 }
 
 vector<char*> parsestring(const string x){
@@ -38,7 +72,7 @@ vector<char*> parsestring(const string x){
 		parsed.push_back(delim);
 	}
 	
-	parsed.pop_back(); //for some reason creates empty element?
+	parsed.pop_back();
 	return parsed;
 }
 
@@ -416,8 +450,12 @@ void workcommand(const string userin){
 				}
 				
 			}
+			//***************above are IO redirs. add additional functions below ********************
 			else{
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				if(strcmp(splitlist.at(0),"cd") == 0)
+					my_cd(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 		}
 		else{
@@ -466,6 +504,11 @@ int main(int argc, char* argv[]){
 	if (SIG_ERR==signal(SIGINT, sighandler));
 	string command;
 	
+	//initialize working directory
+	if(chdir(getenv("HOME"))!=0)
+		perror("error with chdir");
+	CURRPATH = getcd();
+		
 	while(command!="exit"){
 
 		pout();
