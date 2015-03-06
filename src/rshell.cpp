@@ -54,9 +54,10 @@ void my_cd(vector<char*> newdir){
 		}
 	}
 	else{
-		CURRPATH = getcd();
 		if(chdir(getenv("HOME"))!=0)
 			perror("error with chdir");
+
+		CURRPATH = getcd();
 	}
 }
 
