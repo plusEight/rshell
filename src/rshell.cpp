@@ -20,21 +20,8 @@
 
 using namespace std;
 
-void sighandler(int signal){
-	if (signal == SIGINT){
-		raise(SIGINT);
-//		if(childpid != 0)
-//			kill(childpid, SIGINT);
-//		else
-//			cout << endl <<"Use exit to close the application." << endl;
-	}
-	else if(signal == SIGTSTP){
-		exit(1);
-	}
-}
-
 string CURRPATH = "~";
-int childpid = 0;
+int pid = 0;
 int parentpid = -1;
 
 ostream& pout(){
@@ -73,6 +60,21 @@ void my_cd(vector<char*> newdir){
 			perror("error with chdir");
 
 		CURRPATH = getcd();
+	}
+}
+
+void fgbg(vector<char*> x){
+	if(strcmp(x.at(0),"fg")==0){
+		if(pid>0){
+			if(-1==kill(pid,SIGCONT))
+				perror("error with fg kill");
+		}
+		else
+			cerr << "No background processes" << endl;
+	}
+	if(strcmp(x.at(0),"bg")==0){
+		if(-1==kill(parentpid,SIGTSTP))
+			perror("error with bg kill");
 	}
 }
 
@@ -149,18 +151,12 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
 
-	int pid = fork();
-	childpid = pid;
+	pid = fork();
 
 	if(pid<0){
 		perror("Forking Error");
 	}
 	else if(pid==0){
-			if (SIG_ERR==signal(SIGINT, sighandler))
-				perror("Error with SIGINT");
-			if (SIG_ERR==signal(SIGTSTP, sighandler))
-				perror("Error with SIGTSTP");
-
 		if (track == 5){
 			if((savein = dup(0)) == -1)
 				perror("error with dup");
@@ -207,8 +203,6 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		if(track == 6){
 			// filed[1];
 		}
-
-
 		//**************execute here
 		if(execvp(cmds[0], cmds)==-1){
 			perror("execvp error");
@@ -229,8 +223,6 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		exit(1);
 	}
 	else{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGTSTP, SIG_IGN);
 		if(waitpid(pid,&stat,0)==-1){
 			perror("error executing");
 			exit(1);
@@ -454,7 +446,7 @@ void workcommand(const string userin){
 	vector<char*> splitlist;
 	int tracker = -1;
 	int after = -1;
-	bool prevcmd = true; //prev command succeeded or failed
+	bool prevcmd = true;
 	bool firstrun = true;
 
 	while(!cmdlist.empty()){
@@ -480,6 +472,8 @@ void workcommand(const string userin){
 			else{
 				if(strcmp(splitlist.at(0),"cd") == 0)
 					my_cd(splitlist);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
 				else
 					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
@@ -488,12 +482,18 @@ void workcommand(const string userin){
 			if((tracker==1) && (prevcmd == true)){ //enter &&
 				if(strcmp(splitlist.at(0),"cd") == 0)
 					my_cd(splitlist);
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
 				if(strcmp(splitlist.at(0),"cd") == 0)
 					my_cd(splitlist);
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(((tracker==2)) && (prevcmd == true)){ //enter ||
 				break;
@@ -501,7 +501,10 @@ void workcommand(const string userin){
 			else if(tracker==0){ //enter ;
 				if(strcmp(splitlist.at(0),"cd") == 0)
 					my_cd(splitlist);
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			//********************Below are IO redirs, add additonal functions above***************
 			else if(tracker== 3 || tracker == 4 || tracker == 5){ //enter > >> <
@@ -524,10 +527,30 @@ void workcommand(const string userin){
 
 }
 
+void sighandler(int signal){
+	if (signal == SIGINT){
+		cout << endl;
+		if(pid>1){
+			if(-1==kill(pid, SIGINT))
+				perror("error with ^C kill");
+		}
+		else
+			cerr<<"use exit to end the program."<<endl;
+	}
+	else if(signal == SIGTSTP){
+		if(-1==kill(pid, SIGTSTP))
+			perror("error with ^Z kill");
+	}
+}
+
 int main(int argc, char* argv[]){
 	//signal error checking
+	if (SIG_ERR==signal(SIGINT, sighandler))
+		perror("Error with SIGINT");
+	if (SIG_ERR==signal(SIGTSTP, sighandler))
+		perror("Error with SIGTSTP");
 
-		//initialize working directory
+	//initialize working directory
 	if(chdir(getenv("HOME"))!=0)
 		perror("error with chdir");
 	CURRPATH = getcd();
