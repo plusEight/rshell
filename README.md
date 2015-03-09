@@ -1,6 +1,9 @@
 # Rshell
 Rshell is a basic unix shell with the purpose of exploring the different commands and capabilities of a typical unix shell.
 It is fully capable of running and executing various commands with fully implemented connectors.
+^C now ends foreground processes ran by the shell. 
+The shell now searches the current working directory and the PATH environmental character for executables. 
+Now prints out current working directory after the prompt.
 
 #LS
 A recreation of GNU ls using c++ with the full functionality of the -a -l and -R flags.
