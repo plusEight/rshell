@@ -278,6 +278,7 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 	int saveout;
 	int newfile;
 	int newfd; //from cases such as 2> 
+	string execpath; 
 
 	newfd = atoi(cmdlist.back());
 
@@ -314,8 +315,11 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 				perror("error with dup2");
 		}
 		//**************execute here
-		if(execvp(cmds[0], cmds)==-1){
-			perror("execvp error");
+		execpath = findexec(cmdlist.at(0));
+		if(execpath == "-1")
+			cerr<< "Executable not found!" << endl;
+		else if(execv(execpath.c_str(), cmds)==-1){
+			perror("execv error");
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4)){
