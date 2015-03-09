@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <dirent.h>
+#include <errno.h>
 
 using namespace std;
 
@@ -58,6 +59,35 @@ void my_cd(vector<char*> newdir){
 		if(chdir(getenv("HOME"))!=0)
 			perror("error with chdir");
 	}
+}
+
+string findexec(char* x){
+	if(x == '\0')
+		return x;
+	
+	string realpath;
+	vector<char*> paths;
+	char* bigpath = getenv("PATH");
+
+	char* delim; 
+	delim = strtok(bigpath,":");
+	paths.push_back(delim);
+	while(delim != NULL){
+		paths.push_back(delim);
+		delim = strtok(NULL, ":");
+	}
+
+	for (size_t i=0; i<paths.size(); i++){
+		realpath = paths.at(i);
+		realpath += '/';
+		realpath += x;
+		
+		if(access(realpath.c_str(),F_OK)==0){
+			return realpath.c_str();
+		}
+	}
+	string y = "-1";
+	return y;
 }
 
 vector<char*> parsestring(const string x){
@@ -122,6 +152,7 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 	int savein;
 	int newfile;
 	int filed [1]; //0 out, 1 in
+	string execpath;
 	if(track==6)
 		pipe(filed);
 
@@ -130,10 +161,10 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		cmds[i] = cmdlist[i];
 	}
 	cmds[sz] = '\0';
-
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
-
+	
+	
 	int pid = fork();
 	if(pid<0){
 		perror("Forking Error");
@@ -186,8 +217,12 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 			// filed[1];
 		}
 		//**************execute here
-		if(execvp(cmds[0], cmds)==-1){
-			perror("execvp error");
+
+		execpath = findexec(cmdlist.at(0));
+		if(execpath == "-1")
+			cerr<< "Executable not found!" << endl;
+		else if(execv(execpath.c_str(), cmds)==-1){
+			perror("execv error");
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4) || (after > -1)){
@@ -410,18 +445,6 @@ bool isNum (const char* x){
 	return true;
 }
 
-/*	cout << " tracker " << tracker << endl;
-		cout << "input: " << input << endl;
-		cout << "splitlist : " <<splitlist.size() << endl;
-		for (size_t i=0; i<splitlist.size(); i++){
-			cout <<splitlist.at(i) << endl;
-		}
-		cout << "cmdlist : " <<cmdlist.size() << endl;
-		for (size_t i=0; i<cmdlist.size(); i++){
-			cout <<cmdlist.at(i) << endl;
-		}
-*/
-
 void workcommand(const string userin){
 	string input = filterstr(userin);
 	vector<char*> cmdlist = parsestring(input);
@@ -493,7 +516,6 @@ void workcommand(const string userin){
 
 void sighandler(int signal){
 	if (signal == SIGINT){
-		raise(SIGTSTP);
 	}
 	else if(signal == SIGTSTP){
 		//do thing
