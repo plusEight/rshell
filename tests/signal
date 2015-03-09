@@ -1,0 +1,150 @@
+Script started on Sun 08 Mar 2015 08:18:12 PM PDT
+~
+cfan002@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd Documents.[K/Github/rshell
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/Github/rshell[0;95m (master) [0;36m$[0m #starting scrupt
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/Github/rshell[0;95m (master) [0;36m$[0m cs100-runtests bin/rshell myscript
+************
+* myscript *
+************
+================================================================================
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #this is the test script for testing the shell (signal assignment)
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #begin test with cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Documents
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents$ cd Github
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github$ cd rshell
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #reset directory and try linking cd together. (cd without arguments is implemented to go back to root)
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Documents/Github/rshell
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #now testing absolute paths
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd /bin
+cfan002@hammer.cs.ucr.edu:/bin$ #current working directory should be displayed throughout the above tests
+cfan002@hammer.cs.ucr.edu:/bin$ #testing ^C
+cfan002@hammer.cs.ucr.edu:/bin$ cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Documents/Github/rshell
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ ls
+1.txt  2.txt  3.txt  bin  LICENSE  Makefile  myscript  README.md  signal  src  test1  test2  tests
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #here are two executables that I created, test 1 and test 2, to check if ^C works
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #test1 asks for input from the user on an infinite loop
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #test2 infinitely prints out a message to the screen
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ ./test1
+This is a test program that infinitely feeds back input from the user.
+hello
+You entered: hello
+this is my first executable
+You entered: this
+You entered: is
+You entered: my
+You entered: first
+You entered: executable
+it will forever return what i type in
+You entered: it
+You entered: will
+You entered: forever
+You entered: return
+You entered: what
+You entered: i
+You entered: type
+You entered: in
+
+^C
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ ls
+1.txt  2.txt  3.txt  bin  LICENSE  Makefile  myscript  README.md  signal  src  test1  test2  tests
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #the foreground process as ended and we are still in our shell
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ ./test2 #this executable will periodically print a message indefinitely
+This second test program periodically outputs in an infinite loop.
+This is an infinite loop. :^)
+
+^C
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #note that the above only printed one line because I am testing this with the cs100-runtest script, which does not delay its input.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cat
+
+^C
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #now testing execv
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #as shown above, commands like ls already work.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #also running an executable from the current working directory also works.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #testing bad programs
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ asdfas
+Executable not found!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ akldfjas
+Executable not found!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ asfd
+Executable not found!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #testing running from a path
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ./Documents/Github/rshell/test1
+This is a test program that infinitely feeds back input from the user.
+did I make it to my test program? Yes I did!
+You entered: did
+You entered: I
+You entered: make
+You entered: it
+You entered: to
+You entered: my
+You entered: test
+You entered: program?
+You entered: Yes
+You entered: I
+You entered: did!
+
+^C
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #lets try using connectors
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Desktop
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Desktop$ echo hello || cd
+hello
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Desktop$ #good. does not return us to root.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Desktop$ echo goodbye && cd ..
+goodbye
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ true && ./Documents/Github/rshell/test1
+This is a test program that infinitely feeds back input from the user.
+
+back here again are we?
+You entered: back
+You entered: here
+You entered: again
+You entered: are
+You entered: we?
+
+^C
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #those test cases should suffice
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ exit
+
+
+================================================================================
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/Github/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+cfan002@hammer $ exit
+exit
+
+Script done on Sun 08 Mar 2015 08:19:00 PM PDT
