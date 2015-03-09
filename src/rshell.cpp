@@ -82,6 +82,8 @@ void fgbg(vector<char*> x){
 string findexec(char* x){
 	if(x == '\0')
 		return x;
+	if(access((CURRPATH+"/"+x).c_str(),F_OK)==0)
+		return CURRPATH+"/"+x;
 	
 	string realpath;
 	vector<char*> paths;
