@@ -242,6 +242,7 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 			cerr<< "Executable not found!" << endl;
 		else if(execv(execpath.c_str(), cmds)==-1){
 			perror("execv error");
+			return false;
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4) || (after > -1)){
@@ -320,6 +321,7 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 			cerr<< "Executable not found!" << endl;
 		else if(execv(execpath.c_str(), cmds)==-1){
 			perror("execv error");
+			return false;
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4)){
