@@ -16,14 +16,98 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <dirent.h>
+#include <errno.h>
 
 using namespace std;
+
+string CURRPATH = "~";
+int pid = 0;
+int parentpid = -1;
 
 ostream& pout(){
 	char hostname[1024];
 	hostname[1023] = '\0';
 	gethostname(hostname,1023);
-	return cout <<getlogin()<<"@"<<hostname<< "$ ";
+	return cout <<getlogin()<<"@"<<hostname<<":"<<CURRPATH<< "$ ";
+}
+
+string getcd(){
+	char buffer[1024];
+	string currw;
+	
+	if(NULL == getcwd(buffer, 1024))
+		perror("Error with getcwd");
+	else
+		currw = getcwd(buffer, 1024);
+	return currw;
+}
+
+void my_cd(vector<char*> newdir){
+	if(newdir.size()>1){
+		string newstr = newdir.at(1);
+		if(newstr == ".")
+			;
+		else{
+			if(chdir(newstr.c_str())!=0)
+				perror("error with chdir");
+			else{
+				CURRPATH = getcd();
+			}
+		}
+	}
+	else{
+		if(chdir(getenv("HOME"))!=0)
+			perror("error with chdir");
+
+		CURRPATH = getcd();
+	}
+}
+
+void fgbg(vector<char*> x){
+	if(strcmp(x.at(0),"fg")==0){
+		if(pid>0){
+			if(-1==kill(pid,SIGCONT))
+				perror("error with fg kill");
+		}
+		else
+			cerr << "No background processes" << endl;
+	}
+	if(strcmp(x.at(0),"bg")==0){
+		if(-1==kill(parentpid,SIGTSTP))
+			perror("error with bg kill");
+	}
+}
+
+string findexec(char* x){
+	if(x == '\0')
+		return x;
+	if(access((CURRPATH+"/"+x).c_str(),F_OK)==0)
+		return CURRPATH+"/"+x;
+	
+	string realpath;
+	vector<char*> paths;
+	char* bigpath = getenv("PATH");
+
+	char* delim; 
+	delim = strtok(bigpath,":");
+	paths.push_back(delim);
+	while(delim != NULL){
+		paths.push_back(delim);
+		delim = strtok(NULL, ":");
+	}
+
+	for (size_t i=0; i<paths.size(); i++){
+		realpath = paths.at(i);
+		realpath += '/';
+		realpath += x;
+		
+		if(access(realpath.c_str(),F_OK)==0){
+			return realpath.c_str();
+		}
+	}
+	string y = "-1";
+	return y;
 }
 
 vector<char*> parsestring(const string x){
@@ -37,8 +121,7 @@ vector<char*> parsestring(const string x){
 		delim = strtok(NULL, " " );
 		parsed.push_back(delim);
 	}
-	
-	parsed.pop_back(); //for some reason creates empty element?
+	parsed.pop_back();
 	return parsed;
 }
 
@@ -62,7 +145,8 @@ string filterstr(const string userin){
 			else break;
 		}
 	
-		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
+		if(newstr.at(newstr.size()-1)==';' || newstr.at(newstr.size()-1)=='|' || newstr.at(newstr.size()-1)=='&'|| 
+		newstr.at(newstr.size()-1)=='<'|| newstr.at(newstr.size()-1)=='>'){
 			pout()<<"\'"<<newstr.at(newstr.size()-1)<<"\' "<< "cannot be at the end of your command."<<endl;
 			return "";
 		}
@@ -87,6 +171,7 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 	int savein;
 	int newfile;
 	int filed [1]; //0 out, 1 in
+	string execpath;
 	if(track==6)
 		pipe(filed);
 
@@ -95,11 +180,11 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		cmds[i] = cmdlist[i];
 	}
 	cmds[sz] = '\0';
-
 	if((strcmp(cmdlist[0], "exit") == 0))
 		exit(1);
 
-	int pid = fork();
+	pid = fork();
+
 	if(pid<0){
 		perror("Forking Error");
 	}
@@ -151,8 +236,12 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 			// filed[1];
 		}
 		//**************execute here
-		if(execvp(cmds[0], cmds)==-1){
-			perror("execvp error");
+
+		execpath = findexec(cmdlist.at(0));
+		if(execpath == "-1")
+			cerr<< "Executable not found!" << endl;
+		else if(execv(execpath.c_str(), cmds)==-1){
+			perror("execv error");
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4) || (after > -1)){
@@ -375,25 +464,13 @@ bool isNum (const char* x){
 	return true;
 }
 
-/*	cout << " tracker " << tracker << endl;
-		cout << "input: " << input << endl;
-		cout << "splitlist : " <<splitlist.size() << endl;
-		for (size_t i=0; i<splitlist.size(); i++){
-			cout <<splitlist.at(i) << endl;
-		}
-		cout << "cmdlist : " <<cmdlist.size() << endl;
-		for (size_t i=0; i<cmdlist.size(); i++){
-			cout <<cmdlist.at(i) << endl;
-		}
-*/
-
 void workcommand(const string userin){
 	string input = filterstr(userin);
 	vector<char*> cmdlist = parsestring(input);
 	vector<char*> splitlist;
 	int tracker = -1;
 	int after = -1;
-	bool prevcmd = true; //prev command succeeded or failed
+	bool prevcmd = true;
 	bool firstrun = true;
 
 	while(!cmdlist.empty()){
@@ -415,23 +492,45 @@ void workcommand(const string userin){
 				}
 				
 			}
+			//***************above are IO redirs. add additional functions below ********************
 			else{
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				if(strcmp(splitlist.at(0),"cd") == 0)
+					my_cd(splitlist);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 		}
 		else{
 			if((tracker==1) && (prevcmd == true)){ //enter &&
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				if(strcmp(splitlist.at(0),"cd") == 0)
+					my_cd(splitlist);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(((tracker==2)) && (prevcmd == false)){ //enter ||
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				if(strcmp(splitlist.at(0),"cd") == 0)
+					my_cd(splitlist);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
 			else if(((tracker==2)) && (prevcmd == true)){ //enter ||
 				break;
 			}
 			else if(tracker==0){ //enter ;
-				prevcmd = execute(splitlist, tracker, cmdlist, after);
+				if(strcmp(splitlist.at(0),"cd") == 0)
+					my_cd(splitlist);
+				else if((strcmp(splitlist.at(0),"fg") == 0) || (strcmp(splitlist.at(0),"bg") == 0))
+					fgbg(splitlist);
+				else
+					prevcmd = execute(splitlist, tracker, cmdlist, after);
 			}
+			//********************Below are IO redirs, add additonal functions above***************
 			else if(tracker== 3 || tracker == 4 || tracker == 5){ //enter > >> <
 				if(tracker == 5)
 					after = checkclose(cmdlist);
@@ -454,16 +553,36 @@ void workcommand(const string userin){
 
 void sighandler(int signal){
 	if (signal == SIGINT){
-		raise(SIGTSTP);
-		//cout << "^c caught !!\n"<< flush;
+		cout << endl;
+		if(pid>1){
+			if(-1==kill(pid, SIGINT))
+				perror("error with ^C kill");
+		}
+		else
+			cerr<<"use exit to end the program.";
+	}
+	else if(signal == SIGTSTP){
+		if(-1==kill(pid, SIGTSTP))
+			perror("error with ^Z kill");
 	}
 }
 
 int main(int argc, char* argv[]){
-	//struct sigaction psa;
-	if (SIG_ERR==signal(SIGINT, sighandler));
-	string command;
+	//signal error checking
+	if (SIG_ERR==signal(SIGINT, sighandler))
+		perror("Error with SIGINT");
+	if (SIG_ERR==signal(SIGTSTP, sighandler))
+		perror("Error with SIGTSTP");
+
+	//initialize working directory
+	if(chdir(getenv("HOME"))!=0)
+		perror("error with chdir");
+	CURRPATH = getcd();
 	
+	//initialize main pid
+	parentpid = getpid();
+
+	string command;
 	while(command!="exit"){
 
 		pout();
