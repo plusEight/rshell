@@ -135,8 +135,8 @@ You entered: we?
 
 ^C
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
-cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #those test cases should suffice
-cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ^C
+use exit to end the program.
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ exit
 
 
