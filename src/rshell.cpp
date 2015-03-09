@@ -28,7 +28,8 @@ int parentpid = -1;
 ostream& pout(){
 	char hostname[1024];
 	hostname[1023] = '\0';
-	gethostname(hostname,1023);
+	if(gethostname(hostname,1023)==-1)
+		perror("error with gethostname");
 	return cout <<getlogin()<<"@"<<hostname<<":"<<CURRPATH<< "$ ";
 }
 
@@ -36,10 +37,9 @@ string getcd(){
 	char buffer[1024];
 	string currw;
 	
-	if(NULL == getcwd(buffer, 1024))
-		perror("Error with getcwd");
-	else
-		currw = getcwd(buffer, 1024);
+	currw = getcwd(buffer, 1024);
+	if(currw.empty())
+		perror("Error with getcwd.");
 	return currw;
 }
 
@@ -278,6 +278,7 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 	int saveout;
 	int newfile;
 	int newfd; //from cases such as 2> 
+	string execpath; 
 
 	newfd = atoi(cmdlist.back());
 
@@ -314,8 +315,11 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 				perror("error with dup2");
 		}
 		//**************execute here
-		if(execvp(cmds[0], cmds)==-1){
-			perror("execvp error");
+		execpath = findexec(cmdlist.at(0));
+		if(execpath == "-1")
+			cerr<< "Executable not found!" << endl;
+		else if(execv(execpath.c_str(), cmds)==-1){
+			perror("execv error");
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4)){
@@ -562,8 +566,9 @@ void sighandler(int signal){
 			cerr<<"use exit to end the program.";
 	}
 	else if(signal == SIGTSTP){
-		if(-1==kill(pid, SIGTSTP))
-			perror("error with ^Z kill");
+		if(pid>1)
+			if(-1==kill(pid, SIGTSTP))
+				perror("error with ^Z kill");
 	}
 }
 
