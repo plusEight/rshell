@@ -164,8 +164,12 @@ void formatprint(const char* dirName, bool &a, bool l, bool r){
 
 		if(l == true){
 			struct passwd logininfo = *getpwuid(mylogs.st_uid);
+			if(&logininfo==NULL)
+				perror("Error with getpwuid");
 			struct group groupinfo = *getgrgid(mylogs.st_gid);
-			
+			if(&groupinfo==NULL)
+				perror("Error with getpwuid");
+
 			if(alph.at(i).size() >=20)
 				cout <<setw(20)<<left<<alph.at(i).substr(0, 18)+'*';
 			else
