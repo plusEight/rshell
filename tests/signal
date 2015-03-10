@@ -114,6 +114,8 @@ You entered: did!
 
 ^C
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd asdfhkasdf
+error with chdir: No such file or directory
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #lets try using connectors
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Desktop
