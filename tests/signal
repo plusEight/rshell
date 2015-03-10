@@ -38,8 +38,10 @@ cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #reset
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Documents/Github/rshell
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ #now testing absolute paths
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd ./usr/bin
+error with chdir: No such file or directory
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002/Documents/Github/rshell$ cd /bin
-cfan002@hammer.cs.ucr.edu:/bin$ #current working directory should be displayed throughout the above tests
+cfan00r@hammer.cs.ucr.edu:/bin$ #current working directory should be displayed throughout the above tests
 cfan002@hammer.cs.ucr.edu:/bin$ #testing ^C
 cfan002@hammer.cs.ucr.edu:/bin$ cd
 cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ cd Documents/Github/rshell
