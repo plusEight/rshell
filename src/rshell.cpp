@@ -30,7 +30,11 @@ ostream& pout(){
 	hostname[1023] = '\0';
 	if(gethostname(hostname,1023)==-1)
 		perror("error with gethostname");
-	return cout <<getlogin()<<"@"<<hostname<<":"<<CURRPATH<< "$ ";
+	string login;
+	login = getlogin();
+	if(login.empty())
+		perror("error with getlogin!");
+	return cout <<login<<"@"<<hostname<<":"<<CURRPATH<< "$ ";
 }
 
 string getcd(){
@@ -84,6 +88,10 @@ string findexec(char* x){
 		return x;
 	if(access((CURRPATH+"/"+x).c_str(),F_OK)==0)
 		return CURRPATH+"/"+x;
+	else if(errno == ENOENT)
+		;
+	else	
+		perror("error with access");
 	
 	string realpath;
 	vector<char*> paths;
@@ -105,6 +113,10 @@ string findexec(char* x){
 		if(access(realpath.c_str(),F_OK)==0){
 			return realpath.c_str();
 		}
+		else if(errno == ENOENT)
+			;
+		else
+			perror("error with access");
 	}
 	string y = "-1";
 	return y;
@@ -170,10 +182,9 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 	int saveout;
 	int savein;
 	int newfile;
-	int filed [1]; //0 out, 1 in
 	string execpath;
 	if(track==6)
-		pipe(filed);
+		;
 
 	char **cmds = new char*[sz+1];
 	for(int i=0; i<sz; i++){
@@ -202,14 +213,17 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		if (after > 0){
 			if((saveout = dup(1))==-1)
 				perror("error with dup");
-			if(access(cmdlist2.at(after+1),F_OK) != -1) //does output file exist?
-					newfile = open(cmdlist2.at(after+1), O_WRONLY | O_TRUNC, 00744);
+			if(access(cmdlist2.at(after+1),F_OK) != -1){ //does output file exist?{
+				if((newfile = open(cmdlist2.at(after+1), O_WRONLY | O_TRUNC, 00744))==-1){
+					perror("error with open");
+				}
 			else
-				newfile = open(cmdlist2.at(after+1), O_WRONLY | O_CREAT, 00744);
-			
-			if(newfile == -1){
-				perror("error with open");
+				perror("error with access");
 			}
+			else
+				if((newfile = open(cmdlist2.at(after+1), O_WRONLY | O_CREAT, 00744))==-1)
+					perror("error with open");
+			
 			if((dup2(newfile,1))==-1)
 				perror("error with dup2");
 
@@ -218,13 +232,18 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 			if((saveout = dup(1))==-1)
 				perror("error with dup");
 			if(access(cmdlist2.at(0),F_OK) != -1){  //does output file exist?
-				if(track == 4)
-					newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744);
+				if(track == 4){
+					if((newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744))==-1)
+						perror("Error with open");
+				}
 				else
-					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+					if((newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744))==-1)
+						perror("Error with open");
 			}
-			else
+			else if(errno == ENOENT)
 				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
+			else
+				perror("error with access");
 			
 			if(newfile == -1){
 				perror("error with open");
@@ -246,14 +265,16 @@ bool execute(const vector<char*> cmdlist, const int track, vector<char*> &cmdlis
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4) || (after > -1)){
-			dup2(saveout, 1);
+			if(-1==dup2(saveout, 1))
+				perror("error with dup2");
 			if(-1==close(newfile))
 				perror("error closing");
 			
 		}
 
 		if(track == 5){
-			dup2(savein, 0);
+			if(1==dup2(savein, 0))
+				perror("error with dup2");
 			if(-1==close(newfile))
 				perror("error closing");
 		}
@@ -301,14 +322,18 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 			if((saveout = dup(newfd))==-1)
 				perror("error with dup");
 			if(access(cmdlist2.at(0),F_OK) != -1){  //does output file exist?
-				if(track == 4)
-					newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744);
+				if(track == 4){
+					if((newfile = open(cmdlist2.at(0), O_WRONLY | O_APPEND, 00744))==-1)
+						perror("error with open");
+				}
 				else
-					newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744);
+					if((newfile = open(cmdlist2.at(0), O_WRONLY | O_TRUNC, 00744))==-1)
+						perror("error with open");
 			}
-			else
+			else if(errno == ENOENT)
 				newfile = open(cmdlist2.at(0), O_WRONLY | O_CREAT, 00744);
-			
+			else
+				perror("error with access");
 			if(newfile == -1){
 				perror("error with open");
 			}
@@ -325,7 +350,8 @@ bool execEC(const vector<char*> &cmdlist, const int track, vector<char*> &cmdlis
 		}
 		//**************execute here
 		if ((track == 3) || (track == 4)){
-			dup2(saveout, newfd);
+			if(dup2(saveout, newfd)==-1)
+				perror("error with dup2");
 			if(-1==close(newfile))
 				perror("error closing");
 			
