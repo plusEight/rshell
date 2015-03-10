@@ -1,0 +1,271 @@
+Script started on Mon 09 Mar 2015 05:00:57 PM PDT
+~
+cfan002@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd Documents/Github/rshell
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/Github/rshell[0;95m (master) [0;36m$[0m bin/rshell[K[K[K[K[K[K[K[K[K[Kcs100-runtests bin/rshell rscript1,[K.sh [A
+***************
+* rscript1.sh *
+***************
+================================================================================
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #testing basic cases of rshell.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo hello!
+hello!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo hello && pwd
+hello
+/class/classes/cfan002
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo hello || clear
+hello
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls -R && echo we reached this && echo whoohoo!
+.:
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+
+./Desktop:
+
+./Documents:
+a.out  Github  libtest.cpp
+
+./Documents/Github:
+rshell
+
+./Documents/Github/rshell:
+1.txt  3.txt  LICENSE	myscript   rscript1.sh	src    test2
+2.txt  bin    Makefile	README.md  signal	test1  tests
+
+./Documents/Github/rshell/bin:
+cp  ls	rshell
+
+./Documents/Github/rshell/src:
+cp.cpp	ls.cpp	rshell.cpp  Timer.h
+
+./Documents/Github/rshell/tests:
+ls.script  reshowscript  signal  signal.script	typescript
+
+./Downloads:
+a1(1).cpp  a1.cpp    IntList(10).cpp  IntList(16).cpp  IntList(5).cpp  IntList.h
+a1(2).cpp  a(2).cpp  IntList(11).cpp  IntList(17).cpp  IntList(6).cpp  main.cpp
+a1(3).cpp  a(3).cpp  IntList(12).cpp  IntList(1).cpp   IntList(7).cpp
+a1(4).cpp  a(4).cpp  IntList(13).cpp  IntList(2).cpp   IntList(8).cpp
+a1(5).cpp  a.cpp     IntList(14).cpp  IntList(3).cpp   IntList(9).cpp
+a(1).cpp   ex1.cpp   IntList(15).cpp  IntList(4).cpp   IntList.cpp
+
+./Music:
+
+./newfolder:
+
+./Pictures:
+
+./Public:
+
+./Templates:
+
+./Videos:
+
+./WINDOWS:
+system
+
+./WINDOWS/system:
+we reached this
+whoohoo!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo
+
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ true && free
+             total       used       free     shared    buffers     cached
+Mem:     264525108   14097716  250427392        576    1010356    5326580
+-/+ buffers/cache:    7760780  256764328
+Swap:     27585532          0   27585532
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ false&&free
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ false || echo it is false!
+it is false!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #testing spacing with connectors
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo hello|| clear
+hello
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls&&hello
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+Executable not found!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #further testing connectors and exec(now execv instead of execvp)
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ askfkjadhf || echo OR connector succeeded!
+Executable not found!
+OR connector succeeded!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ asdfasd || x=5 && echo $x
+Executable not found!
+Executable not found!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls nonexistant || echo did not print!
+ls: cannot access nonexistant: No such file or directory
+did not print!
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #trying strange syntax to break the shell
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ df&&df&&df&&df&&df&&df&&df||exit
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960616 395437328   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960624 395437320   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960624 395437320   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960624 395437320   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960624 395437320   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960624 395437320   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/sda1            453437944  34960628 395437316   9% /
+tmpfs                132262552         0 132262552   0% /dev/shm
+nemo:/vol/vol0/csmajs
+                     714208960 700562784  13646176  99% /home/csmajs
+nemo:/vol/vol0/classes
+                     714208960 700562784  13646176  99% /class/classes
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ && hello
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ '&' cannot be at the start of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ |hello
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ '|' cannot be at the start of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ &&  ||
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ '&' cannot be at the start of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ pwd; echo; ls || clear
+/class/classes/cfan002
+
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ;
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ';' cannot be at the end of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo will this break &| echo well?
+will this break &
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ||&&;
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ '|' cannot be at the start of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ pwd;;echo double semicolons!
+/class/classes/cfan002
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #trying very long strings (starting with empty spaces)
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ 
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #spaces at beginning and end
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ';' cannot be at the end of your command.
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ #testing odd spacing inbetween connectors and commands
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ ls                                     -R
+.:
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+
+./Desktop:
+
+./Documents:
+a.out  Github  libtest.cpp
+
+./Documents/Github:
+rshell
+
+./Documents/Github/rshell:
+1.txt  3.txt  LICENSE	myscript   rscript1.sh	src    test2
+2.txt  bin    Makefile	README.md  signal	test1  tests
+
+./Documents/Github/rshell/bin:
+cp  ls	rshell
+
+./Documents/Github/rshell/src:
+cp.cpp	ls.cpp	rshell.cpp  Timer.h
+
+./Documents/Github/rshell/tests:
+ls.script  reshowscript  signal  signal.script	typescript
+
+./Downloads:
+a1(1).cpp  a1.cpp    IntList(10).cpp  IntList(16).cpp  IntList(5).cpp  IntList.h
+a1(2).cpp  a(2).cpp  IntList(11).cpp  IntList(17).cpp  IntList(6).cpp  main.cpp
+a1(3).cpp  a(3).cpp  IntList(12).cpp  IntList(1).cpp   IntList(7).cpp
+a1(4).cpp  a(4).cpp  IntList(13).cpp  IntList(2).cpp   IntList(8).cpp
+a1(5).cpp  a.cpp     IntList(14).cpp  IntList(3).cpp   IntList(9).cpp
+a(1).cpp   ex1.cpp   IntList(15).cpp  IntList(4).cpp   IntList.cpp
+
+./Music:
+
+./newfolder:
+
+./Pictures:
+
+./Public:
+
+./Templates:
+
+./Videos:
+
+./WINDOWS:
+system
+
+./WINDOWS/system:
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo    hello &&                           ls; echo we reach the end?
+hello
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+we reach the end?
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ mkdir newfolder && rm newfolder
+mkdir: cannot create directory `newfolder': File exists
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ touch newfile && ls
+dead.letter  Documents	Music	 newfolder  Public	 Templates  WINDOWS
+Desktop      Downloads	newfile  Pictures   sendspam.sh  Videos
+cfan002@hammer.cs.ucr.edu:/class/classes/cfan002$ echo I've had enough && exit
+I've had enough
+
+================================================================================
+[s%%%%%%%%%%[u[0;32mcfan002[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/Github/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+cfan002@hammer $ exit
+exit
+
+Script done on Mon 09 Mar 2015 05:02:38 PM PDT
